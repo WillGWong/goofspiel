@@ -26,6 +26,6 @@
 
 8. GET /games/:game_id/matches - BROWSE list of ALL matches in database for specific game
 
-9. GET /games/:game_id/matches/:match_id - BROWSE list of moves played and continue playing game game_id in progress
+9. GET /games/:game_id/matches/:match_id - non-player can BROWSE list of moves played (watch) and player can play game game_id in progress
 
 10. POST /games/:game_id/matches/:match_id - ADD a move to a specific match (starting a new game, if necessary)

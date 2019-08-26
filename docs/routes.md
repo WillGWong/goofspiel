@@ -10,22 +10,22 @@
 
 # Routes
 
-1. GET / - redirect to GET /login or serve dashboard
+1. GET / - render index.ejs
 
-2. GET /login - render login page
+2. GET /login - render login.ejs
 
-3. POST /login - submit login info to server, redirect to /games
+3. POST /login - post to /login, redirect to /games
 
-4. GET /users - BROWSE list of users
+4. GET /users - BROWSE list of users; render users_index.ejs
 
-5. GET /users/:user_id - BROWSE archive of games played by user_id and show active games
+5. GET /users/:user_id - BROWSE archive of games played by user_id and show active games; render users_show.ejs
 
-6. GET /games - BROWSE list of games showing player rankings for all games
+6. GET /games - BROWSE list of games showing player rankings for all games; render games_index.ejs
 
-7. GET /games/:game_id - go to “homepage” of specific game, showing player rankings for game :id
+7. GET /games/:game_id - go to “homepage” of specific game, showing player rankings for game :id; render games_show.ejs
 
-8. GET /games/:game_id/matches - BROWSE list of ALL matches in database for specific game
+8. GET /games/:game_id/matches - BROWSE list of ALL matches in database for specific game; render matches_index.ejs
 
-9. GET /games/:game_id/matches/:match_id - non-player can BROWSE list of moves played (watch) and player can play game game_id in progress
+9. GET /games/:game_id/matches/:match_id - non-player can BROWSE list of moves played (watch) and player can play game game_id in progress; render matches_show.ejs
 
-10. POST /games/:game_id/matches/:match_id - ADD a move to a specific match (starting a new game, if necessary)
+10. POST /games/:game_id/matches/:match_id - ADD a move to a specific match (starting a new game, if necessary); post to /games/:game_id/matches/:match_id; redirect to /games/:game_id/matches/:match_id

@@ -26,6 +26,6 @@
 
 8. GET /games/:game_id/matches - BROWSE list of ALL matches in database for specific game; render matches_index.ejs
 
-9. GET /games/:game_id/matches/:match_id - non-player can BROWSE list of moves played (watch) and player can play game game_id in progress; render matches_show.ejs
+9. GET /games/:game_id/matches/:match_id - non-player can BROWSE list of moves played (watch) and player can play game game_id in progress; render matches_show.ejs for non-player, render matches_play.ejs for player
 
 10. POST /games/:game_id/matches/:match_id - ADD a move to a specific match (starting a new game, if necessary); post to /games/:game_id/matches/:match_id; redirect to /games/:game_id/matches/:match_id

@@ -15,7 +15,11 @@ module.exports = (db) => {
   })
 
   router.get("/:title_id/matches/:match_id", (req, res) => {
-    res.render("matches_show")
+    if (req.session.user_id) {
+      res.render("matches_play");
+    } else {
+      res.render("matches_show");
+    }
   })
 
   return router;

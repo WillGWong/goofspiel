@@ -14,8 +14,6 @@ module.exports = (db) => {
   });
 
   router.get("/:user_id", (req, res) => {
-    const userId = req.params.user_id;
-
     res.render("users_show");
   })
   return router;

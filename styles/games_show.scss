@@ -1,0 +1,49 @@
+@font-face {
+  font-family: 'ChineseRocksRg-Regular';
+  src: url('chinese_rocks_rg.woff') format('woff');
+  }
+
+header {
+  display: flex;
+  background-image: url("https://i.imgur.com/RhT5naN.jpg");
+  height: 900px;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.goof-pic {
+  border-width: 12px;
+  border-style: double;
+  border-color: black;
+  display: flex;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.gamedesc {
+  width: 50%;
+  align-self: center;
+  font-size: 20px;
+  background-color: orange;
+  border-style: double;
+  border-color: black;
+  padding: 10px;
+}
+
+.leaderboard {
+  margin-left: 50px;
+  font-family: 'ChineseRocksRg-Regular';
+  font-size: 30px
+}
+
+.game-show-buttons{
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 52px;
+  justify-content: space-around;
+  font-size: 35px
+}
+
+.playgame {
+  margin-right: 100px;
+}

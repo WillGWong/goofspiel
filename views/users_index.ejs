@@ -5,7 +5,7 @@
 
     <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
     <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
-    <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
+    <link rel="stylesheet" href="/styles/users_index.css" type="text/css" />
     <link rel="stylesheet" href="/styles/navbar.css" type="text/css" />
 
 
@@ -13,20 +13,25 @@
     <script type="text/javascript" src="/scripts/app.js"></script>
   </head>
 
-  <body>
 
-    <div>
+
+<body>
+    <nav>
         <% include ./partials/_navbar %>
-    </div>
-    <br>
-    <header>
-      <h1 class="gooftitle">GOOFSPIEL EDITION</h1>
-      <div class="homepagebuttons">
-      <button class="loginbutton">LOGIN</button>
-      <button class="browseuserbutton">BROWSE USERS</button>
-      <button class="browsegamesbutton">BROWSE GAMES</button>
-    </div>
-    </header>
+    </nav>
 
-  </body>
-</html>
+  <main>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Username</th>
+          <th scope="col">View Games</th>
+        </tr>
+      </thead>
+      <tbody>
+
+      </tbody>
+    </table>
+  </main>
+
+</body>

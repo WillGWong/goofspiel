@@ -5,7 +5,7 @@
 
     <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
     <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
-    <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
+    <link rel="stylesheet" href="/styles/login.css" type="text/css" />
     <link rel="stylesheet" href="/styles/navbar.css" type="text/css" />
 
 
@@ -20,11 +20,12 @@
     </div>
     <br>
     <header>
-      <h1 class="gooftitle">GOOFSPIEL EDITION</h1>
-      <div class="homepagebuttons">
-      <button class="loginbutton">LOGIN</button>
-      <button class="browseuserbutton">BROWSE USERS</button>
-      <button class="browsegamesbutton">BROWSE GAMES</button>
+      <div class="loginbuttons">
+          <form class ="login-form" method="POST" action="/login">
+            <textarea class="username" name="text" placeholder="Username"></textarea>
+            <textarea class="email" name="text" placeholder="Email"></textarea>
+            <input class="submit" type="submit" value="Login" />
+          </form>
     </div>
     </header>
 

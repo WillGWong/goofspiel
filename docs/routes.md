@@ -14,18 +14,18 @@
 
 2. GET /login - render login.ejs
 
-3. POST /login - post to /login, redirect to /games
+3. POST /login - post to /login, redirect to /titles
 
 4. GET /users - BROWSE list of users; render users_index.ejs
 
-5. GET /users/:user_id - BROWSE archive of games played by user_id and show active games; render users_show.ejs
+5. GET /users/:user_id - BROWSE archive of matches played by user_id and show active matches; render users_show.ejs
 
-6. GET /games - BROWSE list of games showing player rankings for all games; render games_index.ejs
+6. GET /titles - BROWSE list of titles showing player rankings for all titles; render titles_index.ejs
 
-7. GET /games/:game_id - go to “homepage” of specific game, showing player rankings for game :id; render games_show.ejs
+7. GET /titles/:title_id - go to “homepage” of specific title, showing player rankings for title_id; render titles_show.ejs
 
-8. GET /games/:game_id/matches - BROWSE list of ALL matches in database for specific game; render matches_index.ejs
+8. GET /titles/:title_id/matches - BROWSE list of ALL matches in database for specific game; render matches_index.ejs
 
-9. GET /games/:game_id/matches/:match_id - non-player can BROWSE list of moves played (watch) and player can play game game_id in progress; render matches_show.ejs for non-player, render matches_play.ejs for player
+9. GET /titles/:title_id/matches/:match_id - non-player can BROWSE list of moves played (watch) and player can play match match_id in progress; render matches_show.ejs for non-player, render matches_play.ejs for player
 
-10. POST /games/:game_id/matches/:match_id - ADD a move to a specific match (starting a new game, if necessary); post to /games/:game_id/matches/:match_id; redirect to /games/:game_id/matches/:match_id
+10. POST /titles/:title_id/matches/:match_id - ADD a move to a specific match (starting a new match, if necessary); post to /titles/:title_id/matches/:match_id; redirect to /titles/:title_id/matches/:match_id

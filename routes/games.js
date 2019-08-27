@@ -6,5 +6,10 @@ module.exports = (db) => {
     res.render("games_index")
   });
 
+  router.get("/goofspiel", (req, res) => {
+    res.render("games_show")
+  });
+
+
   return router;
 };

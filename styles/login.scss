@@ -14,10 +14,17 @@ header {
   font-family: 'Hepta Slab', serif;
 }
 
+.login-buttons {
+  display: flex;
+  flex-direction: column;
+  justify-content: center
+}
+
 .submit {
   font-size: 40px;
   background: transparent;
   border: none;
+  margin-left: 100px;
 
   &:hover {
     color: white;

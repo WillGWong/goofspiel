@@ -36,8 +36,9 @@ app.use(express.static("public"));
 const apiUsersRoutes = require("./routes/api/users");
 const apiTitlesRoutes = require("./routes/api/titles");
 const apiMatchesRoutes = require("./routes/api/matches");
-const loginRoutes = require("./routes/login/login");
-const usersRoutes = require("./routes/users/users");
+const loginRoutes = require("./routes/login");
+const usersRoutes = require("./routes/users");
+const titlesRoutes = require("./routes/titles");
 
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
@@ -46,6 +47,7 @@ app.use("/api/titles", apiTitlesRoutes(db));
 app.use("/api/matches", apiMatchesRoutes(db));
 app.use("/login", loginRoutes(db));
 app.use("/users", usersRoutes(db));
+app.use("/titles", titlesRoutes(db));
 // Note: mount other resources here, using the same pattern above
 
 

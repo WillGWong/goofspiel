@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
+    <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
+    <link rel="stylesheet" href="/styles/games_show.css" type="text/css" />
+    <link rel="stylesheet" href="/styles/navbar.css" type="text/css" />
+
+
+    <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
+    <script type="text/javascript" src="/scripts/app.js"></script>
+  </head>
+
+  <body>
+
+    <div>
+        <% include ./partials/_navbar %>
+    </div>
+    <br>
+    <header>
+      <div class="leaderboard">LEADERBOARD</div>
+        <img class="goof-pic" src="https://i.imgur.com/nEHg7Pb.jpg" height="350" width="350">
+      <p class="gamedesc">2 player game
+
+          The objective of the game is to accumulate the most value in prizes by strategically bidding on them.
+
+          Each player has 13 tokens valued from 1 to 13 respectively. Each round, the players use one of their
+          tokens to make a secret bid on a randomly chosen prize, each valued from 1 to 13 and shown to all
+          players. After each player has made their secret bid, the bids are revealed with the highest value token
+          winning the prize and the tokens used to bid discarded. No one wins the prize if the bids are tied.
+
+          The game continues with the next round revealing another randomly chosen prize from the remaining
+          prize pool until there are no more tokens (or prizes) left.
+
+          The winner is the player with the highest cumulative value of prizes won</p>
+      <div class="game-show-buttons">
+      <button class="playgame">PLAY GAME</button>
+      <button class="viewmatches">VIEW MATCHES</button>
+    </div>
+    </header>
+
+  </body>
+</html>

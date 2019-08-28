@@ -15,10 +15,6 @@ app.use(cookieSession({
   keys: ["secret keys", "hello"],
   maxAge: 24 * 60 * 60 * 1000
 }));
-<<<<<<< HEAD
-const morgan     = require('morgan');
-=======
->>>>>>> 809d147be4ddad057fe922eeb4c152d98be6b939
 const goofspiel  = require('./goofspiel');
 
 // PG database client/connection setup

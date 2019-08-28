@@ -47,7 +47,6 @@ const initializeGame = (player1Id) => {
 const addChallenger = (player2Id) => {
   return get1PlayerMatchStates()
   .then(res => {
-    console.log(res.length);
     if (res.length === 0) {
       return console.error("no empty matches")
     } else {
@@ -56,13 +55,10 @@ const addChallenger = (player2Id) => {
       const matchId = res[index].id;
       const matchState = res[index].match_state;
       matchState.player2.id = player2Id;
-      // console.log("id", matchId)
-      // console.log('state', matchState)
       return writeMatchState(matchState, matchId)
     }
   })
   .then(res => {
-    // console.log(res);
     return writePlayer2(res.match_state.player2.id, res.id);
   })
 }
@@ -100,13 +96,43 @@ const bidCard = (matchId, playerNum, cardValue) => {
       return;
     } else {
       playerMatchState.bid = playerMatchState.hand.splice(cardIndex, 1)[0]
+      // console.log(matchState)
       writeMatchState(matchState, res.id)
     }
-    // write to db
-    // console.log(playerMatchState)
   })
 }
 
-// bidCard(8, 'player2', 3);
+const resolveRound = (matchId) => {
+  return readMatchState(matchId)
+  .then(res => {
+    let matchState = Object.assign({}, res.match_state)
+    let player1Bid = matchState.player1.bid;
+    let player2Bid = matchState.player2.bid;
+    let prize = matchState.prize.faceUp;
+    const clearCards = () => {
+      matchState.player1.bid = null;
+      matchState.player2.bid = null;
+      matchState.prize.faceUp = null;
+    }
+    if (player1Bid !== null && player2Bid !== null) {
+      if (player1Bid > player2Bid) {
+        matchState.player1.score += prize;
+      } else if (player1Bid < player2Bid) {
+        matchState.player2.score += prize;
+      }
+      clearCards();
+      drawPrizeCard(matchState);
+      // console.log(matchState);
+      return writeMatchState(matchState, res.id);
+    }
+  })
+}
+
 // initializeGame(1);
 // addChallenger(2);
+// bidCard(6, 'player1', 2);
+// bidCard(6, 'player2', 6);
+// resolveRound(6);
+// bidCard(6, 'player1', 3);
+// bidCard(6, 'player2', 7);
+// resolveRound(6);

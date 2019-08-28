@@ -76,24 +76,21 @@ const readMatchState = (matchId) => {
   });
 }
 
-<<<<<<< HEAD:routes/queryHelpers.js
 const getEmailandID = () => {
   return pool.query(`
   SELECT id, email
   FROM users
   `)
-  .then(res => {
-    return res.rows
-=======
+  .then(res => res.rows);
+}
+
 const getMatchIdsFromPlayerId = (playerId) => {
   return pool.query(`
   SELECT id
   FROM matches
   WHERE player1_id = $1 OR player2_id = $1
   `, [playerId])
-  .then(res => {
-    return res.rows;
-  })
+  .then(res => res.rows)
 }
 
 const get1PlayerMatchStates = () => {
@@ -115,7 +112,6 @@ const writePlayer2 = (playerId, matchId) => {
   `, [playerId, matchId])
   .then(res => {
     return res.rows;
->>>>>>> 68080ca1509342266c0d4fb244c860185e2daec6:queryHelpers.js
   })
 }
 
@@ -126,11 +122,8 @@ module.exports = {
   createMatch,
   writeMatchState,
   readMatchState,
-<<<<<<< HEAD:routes/queryHelpers.js
-  getEmailandID
-=======
+  getEmailandID,
   getMatchIdsFromPlayerId,
   get1PlayerMatchStates,
   writePlayer2
->>>>>>> 68080ca1509342266c0d4fb244c860185e2daec6:queryHelpers.js
 }

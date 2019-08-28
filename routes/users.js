@@ -22,7 +22,7 @@ const pool = new Pool({
   database: process.env.DB_NAME
 });
 
-const { getEmailandID } = require('./queryHelpers');
+const { getEmailandID } = require('../queryHelpers');
 
 module.exports = (db) => {
   router.get("/", (req, res) => {

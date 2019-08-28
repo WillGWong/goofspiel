@@ -15,10 +15,21 @@ router.use(cookieSession({
   keys: ["secret keys", "hello"],
   maxAge: 24 * 60 * 60 * 1000
 }));
-const { getUser, putUser, getTitleName } = require('../queryHelpers');
+const {
+  getUserIdFromEmail,
+  putUser,
+  getTitleId,
+  createMatch,
+  writeMatchState,
+  readMatchState,
+  getEmailandID,
+  getMatchIdsFromPlayerId,
+  get1PlayerMatchStates,
+  writePlayer2
+ } = require('../queryHelpers');
 
 const loginUser = (user_email) => {
-  return getUser(user_email)
+  return getUserIdFromEmail(user_email)
   .then(res => {
     if (res.rows.length === 0) {
       return putUser(user_email);

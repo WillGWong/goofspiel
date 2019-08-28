@@ -24,5 +24,5 @@ CREATE TABLE matches (
   match_winner_id INTEGER REFERENCES users(id),
   match_loser_id INTEGER REFERENCES users(id),
   match_is_draw BOOLEAN DEFAULT FALSE,
-  game_state JSONB
+  match_state JSONB
 );

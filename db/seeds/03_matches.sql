@@ -5,5 +5,5 @@ INSERT INTO matches (
   match_winner_id,
   match_loser_id,
   match_is_draw,
-  game_state,
+  match_state,
 ) VALUES

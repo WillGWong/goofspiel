@@ -1,10 +1,13 @@
 const {
-  getUser,
+  getUserIdFromEmail,
   putUser,
   getTitleId,
   createMatch,
   writeMatchState,
-  readMatchState
+  readMatchState,
+  getMatchIdsFromPlayerId,
+  get1PlayerMatchStates,
+  writePlayer2
 } = require('./queryHelpers')
 const CARDS_PER_HAND = 7;
 const TITLE_ID = 1;
@@ -41,9 +44,27 @@ const initializeGame = (player1Id) => {
   })
 }
 
-const addChallenger = (matchState, player2Id) => {
-  matchState.player2.id = player2Id;
-  return matchState;
+const addChallenger = (player2Id) => {
+  return get1PlayerMatchStates()
+  .then(res => {
+    console.log(res.length);
+    if (res.length === 0) {
+      return console.error("no empty matches")
+    } else {
+      // console.log("query results", res.length);
+      const index = getRandomInt(res.length);
+      const matchId = res[index].id;
+      const matchState = res[index].match_state;
+      matchState.player2.id = player2Id;
+      // console.log("id", matchId)
+      // console.log('state', matchState)
+      return writeMatchState(matchState, matchId)
+    }
+  })
+  .then(res => {
+    // console.log(res);
+    return writePlayer2(res.match_state.player2.id, res.id);
+  })
 }
 
 const dealCards = (matchState) => {
@@ -61,16 +82,15 @@ const drawPrizeCard = (matchState) => {
   const index = getRandomInt(matchState.prize.hand.length);
   const drawnCard = matchState.prize.hand.splice(index, 1)[0];
   matchState.prize.faceUp = drawnCard;
-  console.log("In drawPrizeCard:", matchState);
   return matchState;
 }
 
 const bidCard = (matchState, playerNum, cardValue) => {
 }
 
-initializeGame(1);
-// readMatchState(10)
+// initializeGame(1);
+addChallenger(2);
+// get1PlayerMatchStates()
 // .then(res => {
-//   addChallenger(res.match_state, 2);
+//   console.log(res[5].match_state)
 // })
-// not working ^^^^

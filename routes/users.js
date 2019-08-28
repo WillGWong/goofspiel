@@ -22,7 +22,7 @@ const pool = new Pool({
   database: process.env.DB_NAME
 });
 
-const { getEmailandID } = require('./queryHelpers');
+const { getEmailandID, getAllbyID } = require('./queryHelpers');
 
 module.exports = (db) => {
   router.get("/", (req, res) => {
@@ -51,6 +51,13 @@ module.exports = (db) => {
     templateVars = { user_id: null }
     }
     res.render("users_show", templateVars);
+  })
+
+  router.post("/:user_id", (req, res) => {
+    getAllbyID(req.params.user_id)
+    .then(result => {
+      res.redirect(`/`)
+    })
   })
   return router;
 };

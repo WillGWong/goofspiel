@@ -86,6 +86,19 @@ const getEmailandID = () => {
   })
 }
 
+const getAllbyID = (userId) => {
+  return pool.query(`
+  SELECT *
+  FROM matches
+  WHERE player1_id = $1
+  OR player2_id = $1
+  `, [userId])
+  .then(res => {
+    console.log(res.rows)
+    return res.rows
+  })
+}
+
 module.exports = {
   getUser,
   putUser,
@@ -93,5 +106,6 @@ module.exports = {
   createMatch,
   writeMatchState,
   readMatchState,
-  getEmailandID
+  getEmailandID,
+  getAllbyID
 }

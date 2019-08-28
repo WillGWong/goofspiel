@@ -27,7 +27,8 @@
         <tr>
           <th scope="col">Game ID</th>
           <th scope="col">Game Type</th>
-          <th scope="col">Opponent</th>
+          <th scope="col">Player 1</th>
+          <th scope="col">Player 2</th>
           <th scope="col">User Score</th>
           <th scope="col">Opponent Score</th>
           <th scope="col">Round #</th>
@@ -36,7 +37,19 @@
         </tr>
       </thead>
       <tbody>
-
+          <% for(let user of users) { %>
+        <tr>
+          <td scope="col"><%= user.email %></td>
+          <td scope="col"><%= user.email %></td>
+          <td scope="col"><%= user.email %></td>
+          <td scope="col"><%= user.email %></td>
+          <td scope="col"><%= user.email %></td>
+          <td scope="col"><%= user.email %></td>
+          <td scope="col"><%= user.email %></td>
+          <td scope="col"><%= user.email %></td>
+          <td scope="col"><%= user.email %></td>
+        </tr>
+        <% } %>
       </tbody>
     </table>
   </main>

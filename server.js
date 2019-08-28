@@ -8,7 +8,6 @@ const express    = require("express");
 const bodyParser = require("body-parser");
 const sass       = require("node-sass-middleware");
 const app        = express();
-<<<<<<< HEAD
 //const morgan     = require('morgan');
 const cookieSession = require('cookie-session');
 app.use(cookieSession({
@@ -16,10 +15,8 @@ app.use(cookieSession({
   keys: ["secret keys", "hello"],
   maxAge: 24 * 60 * 60 * 1000
 }));
-=======
 const morgan     = require('morgan');
 const goofspiel  = require('./goofspiel');
->>>>>>> 68080ca1509342266c0d4fb244c860185e2daec6
 
 // PG database client/connection setup
 const { Pool } = require('pg');

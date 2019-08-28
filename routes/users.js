@@ -16,11 +16,23 @@ router.use(cookieSession({
 
 module.exports = (db) => {
   router.get("/", (req, res) => {
-    res.render("users_index");
+    let templateVars = ""
+    if (req.session.user_id) {
+    templateVars = req.session
+    } else {
+    templateVars = { user_id: null }
+    }
+    res.render("users_index", templateVars);
   });
 
   router.get("/:user_id", (req, res) => {
-    res.render("users_show");
+    let templateVars = ""
+    if (req.session.user_id) {
+    templateVars = req.session
+    } else {
+    templateVars = { user_id: null }
+    }
+    res.render("users_show", templateVars);
   })
   return router;
 };

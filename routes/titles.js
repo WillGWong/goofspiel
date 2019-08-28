@@ -9,11 +9,23 @@ router.use(cookieSession({
 
 module.exports = (db) => {
   router.get("/", (req, res) => {
-    res.render("titles_index")
+    let templateVars = ""
+    if (req.session.user_id) {
+    templateVars = req.session
+    } else {
+    templateVars = { user_id: null }
+    }
+    res.render("titles_index", templateVars);
   });
 
   router.get("/:title_id", (req, res) => {
-    res.render("titles_show")
+    let templateVars = ""
+    if (req.session.user_id) {
+    templateVars = req.session
+    } else {
+    templateVars = { user_id: null }
+    }
+    res.render("titles_show", templateVars);
   });
 
   router.get("/:title_id/matches", (req, res) => {

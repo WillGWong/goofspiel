@@ -12,6 +12,7 @@
   width: 100%;
   height: 43px;
   font-family: 'ChineseRocksRg-Regular';
+
 }
 
 .nav-home {
@@ -19,13 +20,19 @@
   color: antiquewhite;
   font-size: 22px;
   text-decoration: none;
+  &:hover {
+    color: red
+  }
 }
 
 .nav-games {
   margin: 15px;
   color: antiquewhite;
   text-decoration: none;
-  font-size: 22px
+  font-size: 22px;
+  &:hover {
+    color: red
+  }
 }
 
 .nav-users{
@@ -33,6 +40,9 @@
   color: antiquewhite;
   font-size: 22px;
   text-decoration: none;
+  &:hover {
+    color: red
+  }
 }
 
 .nav-username {
@@ -40,11 +50,29 @@
   color: antiquewhite;
   font-size: 22px;
   text-decoration: none;
+  &:hover {
+    color: red
+  }
 }
 
-.nav-logout {
+.nav-login {
   margin: 15px;
   color: antiquewhite;
   font-size: 22px;
   text-decoration: none;
+  &:hover {
+    color: red
+  }
+}
+
+.nav-logout {
+  background-color: black;
+  color: antiquewhite;
+  font-size: 22px;
+  margin: 15px;
+  border: none;
+
+  &:hover {
+    color: red
+  }
 }

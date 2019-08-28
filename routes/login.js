@@ -8,6 +8,8 @@
 const express = require('express');
 const router  = express.Router();
 const cookieSession = require('cookie-session');
+const bodyParser = require("body-parser");
+router.use(bodyParser.urlencoded({extended: true}));
 router.use(cookieSession({
   name: 'session',
   keys: ["secret keys", "hello"],
@@ -40,7 +42,7 @@ const loginUser = (user_email) => {
         return res.rows[0];
       });
     } else {
-      // console.log("Logged in existing user:", res.rows[0])
+      //console.log("Logged in existing user:", res.rows[0])
       return res.rows[0];
     }
   })
@@ -48,17 +50,29 @@ const loginUser = (user_email) => {
 
 module.exports = (db) => {
   router.get("/", (req, res) => {
-    res.render("login");
+    let templateVars = ""
+    if (req.session.user_id) {
+    templateVars = req.session
+    } else {
+    templateVars = { user_id: null }
+    }
+    res.render("login", templateVars);
   });
 
   router.post("/", (req, res) => {
     loginUser(req.body.email)
-    .then(res => {
-      console.log("!!!!!!!!!!!!!!!!!!!!!!!!!Logged in:", res.id)
-      req.session.user_id  = res.id;
+    .then(result => {
+      req.session.user_id  = result.id;
+      req.session.email  = result.email;
+      res.redirect("/")
     });
 
-    res.redirect("/")
+
+  })
+
+  router.post("/logout", (req, res) => {
+    req.session = null;
+    res.redirect("/");
   })
 
   return router;

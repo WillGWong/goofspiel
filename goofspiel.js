@@ -122,17 +122,48 @@ const resolveRound = (matchId) => {
       }
       clearCards();
       drawPrizeCard(matchState);
-      // console.log(matchState);
-      return writeMatchState(matchState, res.id);
+      return writeMatchState(matchState, res.id)
+      .then(res => {
+        if (res.match_state.prize.hand.length === 0) {
+          console.log(res.match_state);
+        }
+      });
     }
   })
 }
 
-// initializeGame(1);
-// addChallenger(2);
-// bidCard(6, 'player1', 2);
-// bidCard(6, 'player2', 6);
-// resolveRound(6);
-// bidCard(6, 'player1', 3);
-// bidCard(6, 'player2', 7);
-// resolveRound(6);
+const resolveMatch = (matchId) => {
+  readMatchState(matchId)
+  .then(res => {
+    let matchState = Object.assign({}, res.match_state);
+    console.log(matchState);
+    // writeMatchOutcome(matchState);
+  })
+}
+
+const runGame = async () => {
+  await initializeGame(1);
+  await addChallenger(2);
+  await bidCard(6, 'player1', 1);
+  await bidCard(6, 'player2', 2);
+  await resolveRound(6);
+  await bidCard(6, 'player1', 3);
+  await bidCard(6, 'player2', 3);
+  await resolveRound(6);
+  await bidCard(6, 'player1', 5);
+  await bidCard(6, 'player2', 4);
+  await resolveRound(6);
+  await bidCard(6, 'player1', 7);
+  await bidCard(6, 'player2', 5);
+  await resolveRound(6);
+  await bidCard(6, 'player1', 6);
+  await bidCard(6, 'player2', 6);
+  await resolveRound(6);
+  await bidCard(6, 'player1', 4);
+  await bidCard(6, 'player2', 7);
+  await resolveRound(6);
+  await bidCard(6, 'player1', 2);
+  await bidCard(6, 'player2', 1);
+  await resolveRound(6);
+}
+runGame();

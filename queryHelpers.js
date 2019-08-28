@@ -115,6 +115,15 @@ const writePlayer2 = (playerId, matchId) => {
   })
 }
 
+const writeMatchOutcome = (matchState) => {
+  return pool.query(`
+  UPDATE matches
+  SET match_winner_id = $1
+  SET match_loser_id = $2
+  WHERE id = $1
+  `)
+}
+
 module.exports = {
   getUserIdFromEmail,
   putUser,

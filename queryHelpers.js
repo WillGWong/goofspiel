@@ -7,7 +7,7 @@ const pool = new Pool({
 });
 
 // get an existing user.id from the db
-const getUser = (email) => {
+const getUserIdFromEmail = (email) => {
   return pool.query(`
   SELECT id
   FROM users
@@ -76,11 +76,47 @@ const readMatchState = (matchId) => {
   });
 }
 
+const getMatchIdsFromPlayerId = (playerId) => {
+  return pool.query(`
+  SELECT id
+  FROM matches
+  WHERE player1_id = $1 OR player2_id = $1
+  `, [playerId])
+  .then(res => {
+    return res.rows;
+  })
+}
+
+const get1PlayerMatchStates = () => {
+  return pool.query(`
+  SELECT id, match_state
+  FROM matches
+  WHERE player2_id IS NULL;
+  `)
+  .then(res => {
+    return res.rows;
+  })
+}
+
+const writePlayer2 = (playerId, matchId) => {
+  return pool.query(`
+  UPDATE matches
+  SET player2_id = $1
+  WHERE id = $2
+  `, [playerId, matchId])
+  .then(res => {
+    return res.rows;
+  })
+}
+
 module.exports = {
-  getUser,
+  getUserIdFromEmail,
   putUser,
   getTitleId,
   createMatch,
   writeMatchState,
-  readMatchState
+  readMatchState,
+  getMatchIdsFromPlayerId,
+  get1PlayerMatchStates,
+  writePlayer2
 }

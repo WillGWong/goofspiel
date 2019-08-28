@@ -23,7 +23,6 @@ const loginUser = (user_email) => {
     if (res.rows.length === 0) {
       return putUser(user_email);
     } else {
-      //console.log("Logged in existing user:", res.rows[0])
       return res.rows[0];
     }
   })
@@ -43,8 +42,9 @@ module.exports = (db) => {
   router.post("/", (req, res) => {
     loginUser(req.body.email)
     .then(result => {
+      console.log(result)
       req.session.user_id  = result.id;
-      req.session.email  = result.email;
+      req.session.email  = req.body.email;
       res.redirect("/")
     });
 

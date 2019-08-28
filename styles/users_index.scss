@@ -11,14 +11,35 @@ main {
   justify-content: center;
 }
 
-tr {
+.headline {
   font-size: 45px;
   text-decoration: underline;
   font-family: 'ChineseRocksRg-Regular';
   letter-spacing: 3px;
+  padding: 10px
 }
 
 .table {
   margin-top: -400px;
+}
 
+.userlist {
+  text-align: center;
+  line-height: 60px;
+  font-family: 'ChineseRocksRg-Regular';
+  letter-spacing: 3px;
+  margin-top: -400px;
+}
+
+.useremail {
+  font-size: 26px;
+}
+
+.viewbutton {
+  background: transparent;
+  border: none;
+  font-size: 26px;
+  &:hover{
+    color: antiquewhite
+  }
 }

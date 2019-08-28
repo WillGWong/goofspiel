@@ -14,7 +14,7 @@ const getUser = (email) => {
   WHERE email = $1;
   `, [email])
   .then(res => {
-    return res.rows[0];
+    return res;
   });
 }
 
@@ -76,11 +76,22 @@ const readMatchState = (matchId) => {
   });
 }
 
+const getEmailandID = () => {
+  return pool.query(`
+  SELECT id, email
+  FROM users
+  `)
+  .then(res => {
+    return res.rows
+  })
+}
+
 module.exports = {
   getUser,
   putUser,
   getTitleId,
   createMatch,
   writeMatchState,
-  readMatchState
+  readMatchState,
+  getEmailandID
 }

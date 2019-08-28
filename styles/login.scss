@@ -1,3 +1,9 @@
+@font-face {
+  font-family: 'ChineseRocksRg-Regular';
+  src: url('chinese_rocks_rg.woff') format('woff');
+  }
+
+
 header {
   display: flex;
   background-image: url("https://i.imgur.com/RhT5naN.jpg");
@@ -14,10 +20,11 @@ header {
   font-family: 'Hepta Slab', serif;
 }
 
-.login-buttons {
+.loginbuttons {
   display: flex;
   flex-direction: column;
-  justify-content: center
+  justify-content: center;
+  margin-right: 155px;
 }
 
 .submit {
@@ -25,6 +32,7 @@ header {
   background: transparent;
   border: none;
   margin-left: 100px;
+  font-family: 'ChineseRocksRg-Regular';
 
   &:hover {
     color: white;

@@ -14,15 +14,33 @@ router.use(cookieSession({
   maxAge: 24 * 60 * 60 * 1000
 }));
 
+const { Pool } = require('pg');
+const pool = new Pool({
+  user: process.env.DB_USER,
+  password: process.env.DB_PASS,
+  host: process.env.DB_HOST,
+  database: process.env.DB_NAME
+});
+
+const { getEmailandID } = require('./queryHelpers');
+
 module.exports = (db) => {
   router.get("/", (req, res) => {
     let templateVars = ""
     if (req.session.user_id) {
-    templateVars = req.session
+      getEmailandID()
+      .then(result => {
+        templateVars = { users: result, user_id: req.session.user_id, email: req.session.email}
+        res.render("users_index", templateVars);
+      })
     } else {
-    templateVars = { user_id: null }
+      getEmailandID()
+      .then(result => {
+        templateVars = { users: result, user_id: null, email: null}
+        res.render("users_index", templateVars);
+      })
     }
-    res.render("users_index", templateVars);
+
   });
 
   router.get("/:user_id", (req, res) => {

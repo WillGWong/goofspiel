@@ -25,12 +25,37 @@ header {
 
 .homepagebuttons {
   height: 60px;
-  width: 10%;
+  width: 20%;
   text-align: center;
-  margin-left: 680px;
+  margin-left: 575px;
   display: flex;
   flex-direction: column;
   margin-top: 235px;
-  font-family: 'Hepta Slab', serif;
+  font-family: 'ChineseRocksRg-Regular';
+  font-size: 40px
+}
 
+.loginbutton {
+  background: transparent;
+  border: none;
+
+  &:hover {
+    color:antiquewhite
+  }
+}
+
+.browseuserbutton {
+  background: transparent;
+  border: none;
+  &:hover {
+    color:antiquewhite
+  }
+}
+
+.browsetitlesbutton {
+  background: transparent;
+  border: none;
+  &:hover {
+    color:antiquewhite
+  }
 }

@@ -7,7 +7,7 @@ const pool = new Pool({
 });
 
 // get an existing user.id from the db
-const getUser = (email) => {
+const getUserIdFromEmail = (email) => {
   return pool.query(`
   SELECT id
   FROM users
@@ -42,12 +42,12 @@ const getTitleId = (titleName) => {
   });
 }
 
-const createMatch = (player1Id, titleId) => {
+const createMatch = (player1Id, matchState, titleId) => {
   return pool.query(`
-  INSERT INTO matches (player1_id, title_id) VALUES
-  ($1, $2)
+  INSERT INTO matches (player1_id, match_state, title_id) VALUES
+  ($1, $2, $3)
   RETURNING id, match_state;
-  `, [player1Id, titleId])
+  `, [player1Id, matchState, titleId])
   .then(res => {
     return res.rows[0];
   })
@@ -76,6 +76,7 @@ const readMatchState = (matchId) => {
   });
 }
 
+<<<<<<< HEAD:routes/queryHelpers.js
 const getEmailandID = () => {
   return pool.query(`
   SELECT id, email
@@ -83,15 +84,53 @@ const getEmailandID = () => {
   `)
   .then(res => {
     return res.rows
+=======
+const getMatchIdsFromPlayerId = (playerId) => {
+  return pool.query(`
+  SELECT id
+  FROM matches
+  WHERE player1_id = $1 OR player2_id = $1
+  `, [playerId])
+  .then(res => {
+    return res.rows;
+  })
+}
+
+const get1PlayerMatchStates = () => {
+  return pool.query(`
+  SELECT id, match_state
+  FROM matches
+  WHERE player2_id IS NULL;
+  `)
+  .then(res => {
+    return res.rows;
+  })
+}
+
+const writePlayer2 = (playerId, matchId) => {
+  return pool.query(`
+  UPDATE matches
+  SET player2_id = $1
+  WHERE id = $2
+  `, [playerId, matchId])
+  .then(res => {
+    return res.rows;
+>>>>>>> 68080ca1509342266c0d4fb244c860185e2daec6:queryHelpers.js
   })
 }
 
 module.exports = {
-  getUser,
+  getUserIdFromEmail,
   putUser,
   getTitleId,
   createMatch,
   writeMatchState,
   readMatchState,
+<<<<<<< HEAD:routes/queryHelpers.js
   getEmailandID
+=======
+  getMatchIdsFromPlayerId,
+  get1PlayerMatchStates,
+  writePlayer2
+>>>>>>> 68080ca1509342266c0d4fb244c860185e2daec6:queryHelpers.js
 }

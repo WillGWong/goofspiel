@@ -13,7 +13,7 @@ router.use(cookieSession({
   keys: ["secret keys", "hello"],
   maxAge: 24 * 60 * 60 * 1000
 }));
-const { getUser, putUser, getTitleName } = require('./queryHelpers');
+const { getUser, putUser, getTitleName } = require('../queryHelpers');
 
 const loginUser = (user_email) => {
   return getUser(user_email)

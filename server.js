@@ -9,6 +9,7 @@ const bodyParser = require("body-parser");
 const sass       = require("node-sass-middleware");
 const app        = express();
 const morgan     = require('morgan');
+const goofspiel  = require('./goofspiel');
 
 // PG database client/connection setup
 const { Pool } = require('pg');

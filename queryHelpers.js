@@ -42,12 +42,12 @@ const getTitleId = (titleName) => {
   });
 }
 
-const createMatch = (player1Id, titleId) => {
+const createMatch = (player1Id, matchState, titleId) => {
   return pool.query(`
-  INSERT INTO matches (player1_id, title_id) VALUES
-  ($1, $2)
+  INSERT INTO matches (player1_id, match_state, title_id) VALUES
+  ($1, $2, $3)
   RETURNING id, match_state;
-  `, [player1Id, titleId])
+  `, [player1Id, matchState, titleId])
   .then(res => {
     return res.rows[0];
   })

@@ -85,12 +85,28 @@ const drawPrizeCard = (matchState) => {
   return matchState;
 }
 
-const bidCard = (matchState, playerNum, cardValue) => {
+const bidCard = (matchId, playerNum, cardValue) => {
+  return readMatchState(matchId)
+  .then(res => {
+    let matchState = Object.assign({}, res.match_state);
+    let playerMatchState = matchState[playerNum];
+
+    const cardIndex = playerMatchState.hand.findIndex(element => {
+      return element == cardValue;
+    });
+
+    if (cardIndex === -1) {
+      console.log("cardValue not found in hand")
+      return;
+    } else {
+      playerMatchState.bid = playerMatchState.hand.splice(cardIndex, 1)[0]
+      writeMatchState(matchState, res.id)
+    }
+    // write to db
+    // console.log(playerMatchState)
+  })
 }
 
+// bidCard(8, 'player2', 3);
 // initializeGame(1);
-addChallenger(2);
-// get1PlayerMatchStates()
-// .then(res => {
-//   console.log(res[5].match_state)
-// })
+// addChallenger(2);

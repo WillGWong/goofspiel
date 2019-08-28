@@ -81,9 +81,13 @@ const getEmailandID = () => {
   SELECT id, email
   FROM users
   `)
+<<<<<<< HEAD
   .then(res => {
     return res.rows
   })
+=======
+  .then(res => res.rows);
+>>>>>>> 809d147be4ddad057fe922eeb4c152d98be6b939
 }
 
 const getMatchIdsFromPlayerId = (playerId) => {
@@ -92,9 +96,7 @@ const getMatchIdsFromPlayerId = (playerId) => {
   FROM matches
   WHERE player1_id = $1 OR player2_id = $1
   `, [playerId])
-  .then(res => {
-    return res.rows;
-  })
+  .then(res => res.rows)
 }
 
 const get1PlayerMatchStates = () => {

@@ -15,32 +15,13 @@ router.use(cookieSession({
   keys: ["secret keys", "hello"],
   maxAge: 24 * 60 * 60 * 1000
 }));
-
-const { Pool } = require('pg');
-const pool = new Pool({
-  user: process.env.DB_USER,
-  password: process.env.DB_PASS,
-  host: process.env.DB_HOST,
-  database: process.env.DB_NAME
-});
+const { getUser, putUser, getTitleName } = require('./queryHelpers');
 
 const loginUser = (user_email) => {
-  return pool.query(`
-  SELECT *
-  FROM users
-  WHERE email = $1;
-  `, [user_email])
+  return getUser(user_email)
   .then(res => {
     if (res.rows.length === 0) {
-      return pool.query(`
-      INSERT INTO users (email)
-      VALUES ($1)
-      RETURNING *;
-      `, [user_email])
-      .then(res => {
-        // console.log("Inserted and logged in new user:", res.rows[0]);
-        return res.rows[0];
-      });
+      return putUser(user_email);
     } else {
       //console.log("Logged in existing user:", res.rows[0])
       return res.rows[0];

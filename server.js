@@ -32,7 +32,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use("/styles", sass({
   src: __dirname + "/styles",
   dest: __dirname + "/public/styles",
-  debug: true,
+  debug: false,
   outputStyle: 'expanded'
 }));
 app.use(express.static("public"));

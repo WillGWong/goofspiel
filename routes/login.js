@@ -37,6 +37,7 @@ const loginUser = (user_email) => {
       return res.rows[0];
     }
   })
+  .catch(err => console.error(err))
 }
 
 module.exports = (db) => {
@@ -51,13 +52,15 @@ module.exports = (db) => {
   });
 
   router.post("/", (req, res) => {
+    // console.log(req.body);
     loginUser(req.body.email)
     .then(result => {
-      console.log(result)
+      // console.log(result)
       req.session.user_id  = result.id;
       req.session.email  = req.body.email;
       res.redirect("/")
-    });
+    })
+    .catch(err => console.error(err));
 
 
   })
@@ -66,6 +69,7 @@ module.exports = (db) => {
     req.session = null;
     res.redirect("/");
   })
+
 
   return router;
 };

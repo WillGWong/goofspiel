@@ -70,7 +70,8 @@ module.exports = (db) => {
     getEmailById(req.params.user_id)
     .then(email => {
       playeremail = email
-      let templateVars = { scores: scoreArr, user_id: userinfo, email: useremail, displayemail: playeremail, titles: titleArr, players: playerArr, matchIds: idArr, winners: winnerArr }
+      let templateVars = { scores: scoreArr, user_id: userinfo, email: useremail, displayemail: playeremail, titles: titleArr, players: playerArr,
+        matchIds: idArr, winners: winnerArr }
       res.render(`users_show`, templateVars)
     })
   })

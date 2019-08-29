@@ -105,7 +105,7 @@ const bidCard = (matchId, playerNum, cardValue) => {
       return;
     } else {
       playerMatchState.bid = playerMatchState.hand.splice(cardIndex, 1)[0]
-      writeMatchState(matchState, res.id)
+      return writeMatchState(matchState, res.id)
     }
   })
   .catch(err => console.error(err))

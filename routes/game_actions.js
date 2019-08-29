@@ -26,7 +26,7 @@ router.use(cookieSession({
     goofspiel.initializeGame(req.session.user_id)
     .then(resolve => {
       const matchId = resolve.id;
-      res.redirect(`/titles/${titleId}/matches/${matchId}`)
+      res.redirect(`/titles/${titleId}/matches/${matchId}/`)
     })
     .catch(err => console.error(err.error));
   })
@@ -40,7 +40,7 @@ router.use(cookieSession({
       if (result.length === 0) {
         console.error("NO MATCHES FOUND")
       } else {
-        res.redirect(`/titles/${titleId}/matches/${result.id}`)
+        res.redirect(`/titles/${titleId}/matches/${result.id}/`)
       }
     })
   })
@@ -50,7 +50,7 @@ router.use(cookieSession({
     const titleId = req.params.title_id;
     const matchId = req.params.match_id;
     const userId = req.session.user_id;
-    queryHelpers.getPlayersFromMatch(matchId)
+    return queryHelpers.getPlayersFromMatch(matchId)
     .then(resolve => {
       let playerNum = ''; // player1 or player2
       if (resolve.player1 === userId) {
@@ -60,13 +60,17 @@ router.use(cookieSession({
       } else {
         console.error("NEITHER PLAYER FOUND");
       }
-      goofspiel.bidCard(matchId, `${playerNum}`, req.body.player_bid);
-      res.redirect(`/titles/${titleId}/matches/${matchId}`);
-    })
-    .then(resolve => {
-      if (resolve.player1.bid != null && resolve.player2.bid != null) {
-        goofspiel.resolveRound(resolve.id)
-      }
+      return goofspiel.bidCard(matchId, `${playerNum}`, req.body.player_bid)
+      .then(match => {
+        console.log("HELLO", match)
+        if (match.match_state.player1.bid != null && match.match_state.player2.bid != null) {
+          return goofspiel.resolveRound(match.id)
+          .then(match => {
+            return res.redirect(`/titles/${titleId}/matches/${matchId}/`);
+          })
+        }
+        return res.redirect(`/titles/${titleId}/matches/${matchId}/`);
+      })
     })
   })
 

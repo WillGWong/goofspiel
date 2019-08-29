@@ -40,7 +40,11 @@ module.exports = (db) => {
 
   // show a list of active matches
   router.get("/:title_id/matches", (req, res) => {
-    res.render("matches_index")
+    let templateVars = {
+      user_id: req.session.user_id? req.session.user_id : null,
+      email: req.session.user_id? req.session.email : null
+    }
+    res.render("matches_index", templateVars)
   })
 
   // show a specific match
@@ -56,7 +60,7 @@ module.exports = (db) => {
         matchState : matchData[0]["match_state"],
         player: checkPlayerById(req.session.user_id, matchData[0]["match_state"])
       }
-      //console.log("hi", templateVars["matchState"])
+      console.log("hi", templateVars["matchState"])
       res.render("match_play", templateVars);
     })
   })
@@ -79,8 +83,10 @@ const getMatchStateById = (match_id) => {
 }
 
 const checkPlayerById = function (userId, matchData) {
-  if (userId === matchData["player1"]["id"] || userId === matchData["player2"]["id"]) {
-    return userId
+  if (userId === matchData["player1"]["id"]) {
+    return 1
+  } else if (userId === matchData["player2"]["id"]) {
+    return 2
   } else {
     return null
   }

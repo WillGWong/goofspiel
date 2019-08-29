@@ -22,7 +22,7 @@ const pool = new Pool({
   database: process.env.DB_NAME
 });
 
-const { getEmailandID, getMatchDataByID } = require('../queryHelpers');
+const { getEmailandID, getMatchDataByID, getScores, getEmailById, getGameType, getPlayers, getID, getWinner } = require('../queryHelpers');
 
 module.exports = (db) => {
   router.get("/", (req, res) => {
@@ -46,14 +46,16 @@ module.exports = (db) => {
 
   router.get("/:user_id", (req, res) => {
     let userinfo = ""
-    let scoreArr = []
     let useremail = ""
+    let scoreArr = []
+    let playeremail = ""
     let titleArr =[]
     let playerArr = []
     let idArr = []
     let winnerArr =[]
     if (req.session.user_id) {
       userinfo = req.session.user_id
+      useremail = req.session.email
     } else {
       userinfo = null
     }
@@ -67,8 +69,8 @@ module.exports = (db) => {
     })
     getEmailById(req.params.user_id)
     .then(email => {
-      useremail = email
-      let templateVars = { scores: scoreArr, user_id: userinfo, displayemail: useremail, titles: titleArr, players: playerArr, matchIds: idArr, winners: winnerArr }
+      playeremail = email
+      let templateVars = { scores: scoreArr, user_id: userinfo, email: useremail, displayemail: playeremail, titles: titleArr, players: playerArr, matchIds: idArr, winners: winnerArr }
       res.render(`users_show`, templateVars)
     })
   })
@@ -78,67 +80,3 @@ module.exports = (db) => {
   return router;
 };
 
-const getScores = (matches) => {
-  let resultArr = []
-  for (let match of matches) {
-    let matchData = []
-    let score1 = match["match_state"]["player1"]["score"]
-    let score2 = match["match_state"]["player2"]["score"]
-    matchData.push(score1)
-    matchData.push(score2)
-    resultArr.push(matchData)
-  }
-  return resultArr
-}
-
-const getEmailById = (id) => {
-  return pool.query(`
-  SELECT email
-  FROM users
-  WHERE id = $1
-  `, [id])
-  .then(res => {
-    return res["rows"][0]["email"];
-  })
-}
-
-const getGameType = (matches) => {
-  let resultArr = []
-  for (let match of matches) {
-    resultArr.push(match["game_type"])
-  }
-  return resultArr
-}
-
-const getPlayers = (matches) => {
-  let resultArr = []
-  for (let match of matches) {
-    let matchData = []
-    let player1 = match["player_1"]
-    let player2 = match["player_2"]
-    matchData.push(player1)
-    matchData.push(player2)
-    resultArr.push(matchData)
-  }
-  return resultArr
-}
-
-const getID = (matches) => {
-  let resultArr = []
-  for (let match of matches) {
-    resultArr.push(match["id"])
-  }
-  return resultArr
-}
-
-const getWinner = (matches) => {
-  let resultArr = []
-  for (let match of matches) {
-    if ( match["match_winner_id"] === null) {
-      resultArr.push("TBD")
-    } else {
-      resultArr.push(match["match_winner_id"])
-    }
-  }
-  return resultArr
-}

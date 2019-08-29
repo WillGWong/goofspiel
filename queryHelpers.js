@@ -130,6 +130,71 @@ const getMatchDataByID = (user_id) => {
   })
 }
 
+const getScores = (matches) => {
+  let resultArr = []
+  for (let match of matches) {
+    let matchData = []
+    let score1 = match["match_state"]["player1"]["score"]
+    let score2 = match["match_state"]["player2"]["score"]
+    matchData.push(score1)
+    matchData.push(score2)
+    resultArr.push(matchData)
+  }
+  return resultArr
+}
+
+const getEmailById = (id) => {
+  return pool.query(`
+  SELECT email
+  FROM users
+  WHERE id = $1
+  `, [id])
+  .then(res => {
+    return res["rows"][0]["email"];
+  })
+}
+
+const getGameType = (matches) => {
+  let resultArr = []
+  for (let match of matches) {
+    resultArr.push(match["game_type"])
+  }
+  return resultArr
+}
+
+const getPlayers = (matches) => {
+  let resultArr = []
+  for (let match of matches) {
+    let matchData = []
+    let player1 = match["player_1"]
+    let player2 = match["player_2"]
+    matchData.push(player1)
+    matchData.push(player2)
+    resultArr.push(matchData)
+  }
+  return resultArr
+}
+
+const getID = (matches) => {
+  let resultArr = []
+  for (let match of matches) {
+    resultArr.push(match["id"])
+  }
+  return resultArr
+}
+
+const getWinner = (matches) => {
+  let resultArr = []
+  for (let match of matches) {
+    if ( match["match_winner_id"] === null) {
+      resultArr.push("TBD")
+    } else {
+      resultArr.push(match["match_winner_id"])
+    }
+  }
+  return resultArr
+}
+
 module.exports = {
   getUserIdFromEmail,
   putUser,
@@ -141,5 +206,11 @@ module.exports = {
   getMatchIdsFromPlayerId,
   get1PlayerMatchStates,
   writePlayer2,
-  getMatchDataByID
+  getMatchDataByID,
+  getScores,
+  getEmailById,
+  getGameType,
+  getPlayers,
+  getID,
+  getWinner
 }

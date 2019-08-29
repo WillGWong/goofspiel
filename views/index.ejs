@@ -23,8 +23,8 @@
       <h1 class="gooftitle">GOOFSPIEL EDITION</h1>
       <div class="homepagebuttons">
           <% if (user_id) {%>
-      <a href="/user/:user_id">
-      <button class="loginbutton"><%= email %></button>
+      <a class="loginbutton" href="/users/<%= user_id %>">
+        <%= email %>
       </a>
       <% } else {%>
       <a href="/login">

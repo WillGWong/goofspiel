@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Home Page</title>
+
+    <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
+    <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
+    <link rel="stylesheet" href="/styles/match_play.css" type="text/css" />
+    <link rel="stylesheet" href="/styles/navbar.css" type="text/css" />
+
+
+    <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
+    <script type="text/javascript" src="/scripts/app.js"></script>
+  </head>
+
+  <body>
+
+    <div>
+        <% include ./partials/_navbar %>
+    </div>
+    <br>
+
+    <header>
+      <div class="prize">PRIZE
+          <img src='/images/number<%=matchState["prize"]["faceUp"]%>.jpg' height="400" width="250">
+      </div>
+    </header>
+    <% if (player === 1|| player === null) {%>
+    <% for(let card of matchState["player1"]["hand"]) {%>
+      <img src='/images/number<%=[card]%>.jpg' height="400" width="250">
+    <% }}%>
+  </body>
+</html>
+

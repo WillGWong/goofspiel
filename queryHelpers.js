@@ -115,13 +115,25 @@ const writePlayer2 = (playerId, matchId) => {
   })
 }
 
-const writeMatchOutcome = (matchState) => {
-  return pool.query(`
-  UPDATE matches
-  SET match_winner_id = $1
-  SET match_loser_id = $2
-  WHERE id = $1
-  `)
+const writeMatchOutcome = (matchId, winnerId, loserId) => {
+  if (winnerId == null || loserId == null) {
+    // capture falsy values
+    return pool.query(`
+    UPDATE matches
+    SET match_winner_id = NULL,
+        match_loser_id = NULL,
+        match_is_draw = TRUE
+    WHERE id = $1
+    `, [matchId])
+  } else {
+    return pool.query(`
+    UPDATE matches
+    SET match_winner_id = $1,
+        match_loser_id = $2,
+        match_is_draw = FALSE
+    WHERE id = $3
+    `, [winnerId, loserId, matchId])
+  }
 }
 
 module.exports = {
@@ -134,5 +146,6 @@ module.exports = {
   getEmailandID,
   getMatchIdsFromPlayerId,
   get1PlayerMatchStates,
-  writePlayer2
+  writePlayer2,
+  writeMatchOutcome
 }

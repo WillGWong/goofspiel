@@ -5,9 +5,11 @@ const {
   createMatch,
   writeMatchState,
   readMatchState,
+  getEmailandID,
   getMatchIdsFromPlayerId,
   get1PlayerMatchStates,
-  writePlayer2
+  writePlayer2,
+  writeMatchOutcome
 } = require('./queryHelpers')
 const CARDS_PER_HAND = 7;
 const TITLE_ID = 1;
@@ -47,6 +49,7 @@ const initializeGame = (player1Id) => {
 const addChallenger = (player2Id) => {
   return get1PlayerMatchStates()
   .then(res => {
+    // console.log("addChallenger", res)
     if (res.length === 0) {
       return console.error("no empty matches")
     } else {
@@ -125,7 +128,7 @@ const resolveRound = (matchId) => {
       return writeMatchState(matchState, res.id)
       .then(res => {
         if (res.match_state.prize.hand.length === 0) {
-          console.log(res.match_state);
+          return resolveMatch(res.id);
         }
       });
     }
@@ -136,34 +139,43 @@ const resolveMatch = (matchId) => {
   readMatchState(matchId)
   .then(res => {
     let matchState = Object.assign({}, res.match_state);
-    console.log(matchState);
-    // writeMatchOutcome(matchState);
+    // console.log(matchState);
+    const p1Score = res.match_state.player1.score;
+    const p2Score = res.match_state.player2.score;
+    if (p1Score === p2Score) {
+      writeMatchOutcome(res.id, null, null);
+    } else if (p1Score > p2Score) {
+      writeMatchOutcome(res.id, res.match_state.player1.id, res.match_state.player2.id);
+    } else {
+      writeMatchOutcome(res.id, res.match_state.player2.id, res.match_state.player1.id);
+    }
   })
 }
 
 const runGame = async () => {
-  await initializeGame(1);
-  await addChallenger(2);
-  await bidCard(6, 'player1', 1);
-  await bidCard(6, 'player2', 2);
-  await resolveRound(6);
-  await bidCard(6, 'player1', 3);
-  await bidCard(6, 'player2', 3);
-  await resolveRound(6);
-  await bidCard(6, 'player1', 5);
-  await bidCard(6, 'player2', 4);
-  await resolveRound(6);
-  await bidCard(6, 'player1', 7);
-  await bidCard(6, 'player2', 5);
-  await resolveRound(6);
-  await bidCard(6, 'player1', 6);
-  await bidCard(6, 'player2', 6);
-  await resolveRound(6);
-  await bidCard(6, 'player1', 4);
-  await bidCard(6, 'player2', 7);
-  await resolveRound(6);
-  await bidCard(6, 'player1', 2);
-  await bidCard(6, 'player2', 1);
-  await resolveRound(6);
+  // await initializeGame(1);
+  // await addChallenger(2);
+  // await bidCard(6, 'player1', 1);
+  // await bidCard(6, 'player2', 2);
+  // await resolveRound(6);
+  // await bidCard(6, 'player1', 3);
+  // await bidCard(6, 'player2', 3);
+  // await resolveRound(6);
+  // await bidCard(6, 'player1', 5);
+  // await bidCard(6, 'player2', 4);
+  // await resolveRound(6);
+  // await bidCard(6, 'player1', 7);
+  // await bidCard(6, 'player2', 5);
+  // await resolveRound(6);
+  // await bidCard(6, 'player1', 6);
+  // await bidCard(6, 'player2', 6);
+  // await resolveRound(6);
+  // await bidCard(6, 'player1', 4);
+  // await bidCard(6, 'player2', 7);
+  // await resolveRound(6);
+  // await bidCard(6, 'player1', 2);
+  // await bidCard(6, 'player2', 1);
+  // await resolveRound(6);
+  // await resolveMatch(6);
 }
 runGame();

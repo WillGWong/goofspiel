@@ -6,6 +6,19 @@ const pool = new Pool({
   database: process.env.DB_NAME
 });
 
+// get a list of players in a match
+const getPlayersFromMatch = (matchId) => {
+  return pool.query(`
+  SELECT player1_id AS player1, player2_id AS player2
+  FROM matches
+  WHERE id = $1
+  `, [matchId])
+  .then(res => {
+    return res.rows[0];
+  })
+  .catch(err => console.error(err))
+}
+
 // get an existing user.id from the db
 const getUserIdFromEmail = (email) => {
   return pool.query(`
@@ -15,7 +28,8 @@ const getUserIdFromEmail = (email) => {
   `, [email])
   .then(res => {
     return res;
-  });
+  })
+  .catch(err => console.error(err))
 }
 
 // add a new user to the db
@@ -27,7 +41,8 @@ const putUser = (email) => {
   `, [email])
   .then(res => {
     return res.rows[0];
-  });
+  })
+  .catch(err => console.error(err))
 }
 
 // get title id from the titleName
@@ -39,7 +54,8 @@ const getTitleId = (titleName) => {
   `, [titleName])
   .then(res => {
     return res.rows[0];
-  });
+  })
+  .catch(err => console.error(err))
 }
 
 const createMatch = (player1Id, matchState, titleId) => {
@@ -51,6 +67,7 @@ const createMatch = (player1Id, matchState, titleId) => {
   .then(res => {
     return res.rows[0];
   })
+  .catch(err => console.error(err))
 }
 
 const writeMatchState = (matchState, matchId) => {
@@ -62,7 +79,8 @@ const writeMatchState = (matchState, matchId) => {
   `, [matchState, matchId])
   .then(res => {
     return res.rows[0]
-  });
+  })
+  .catch(err => console.error(err))
 }
 
 const readMatchState = (matchId) => {
@@ -73,7 +91,8 @@ const readMatchState = (matchId) => {
   `, [matchId])
   .then(res => {
     return res.rows[0];
-  });
+  })
+  .catch(err => console.error(err))
 }
 
 const getEmailandID = () => {
@@ -81,7 +100,8 @@ const getEmailandID = () => {
   SELECT id, email
   FROM users
   `)
-  .then(res => res.rows);
+  .then(res => res.rows)
+  .catch(err => console.error(err))
 }
 
 const getMatchIdsFromPlayerId = (playerId) => {
@@ -91,17 +111,19 @@ const getMatchIdsFromPlayerId = (playerId) => {
   WHERE player1_id = $1 OR player2_id = $1
   `, [playerId])
   .then(res => res.rows)
+  .catch(err => console.error(err))
 }
 
-const get1PlayerMatchStates = () => {
+const get1PlayerMatchStates = (userId) => {
   return pool.query(`
   SELECT id, match_state
   FROM matches
-  WHERE player2_id IS NULL;
-  `)
+  WHERE player1_id <> $1 AND player2_id IS NULL;
+  `, [userId])
   .then(res => {
     return res.rows;
   })
+  .catch(err => console.error(err))
 }
 
 const writePlayer2 = (playerId, matchId) => {
@@ -109,10 +131,12 @@ const writePlayer2 = (playerId, matchId) => {
   UPDATE matches
   SET player2_id = $1
   WHERE id = $2
+  RETURNING id
   `, [playerId, matchId])
   .then(res => {
-    return res.rows;
+    return res.rows[0];
   })
+  .catch(err => console.error(err))
 }
 
 const writeMatchOutcome = (matchId, winnerId, loserId) => {
@@ -133,6 +157,7 @@ const writeMatchOutcome = (matchId, winnerId, loserId) => {
         match_is_draw = FALSE
     WHERE id = $3
     `, [winnerId, loserId, matchId])
+    .catch(err => console.error(err))
   }
 }
 
@@ -147,5 +172,6 @@ module.exports = {
   getMatchIdsFromPlayerId,
   get1PlayerMatchStates,
   writePlayer2,
-  writeMatchOutcome
+  writeMatchOutcome,
+  getPlayersFromMatch
 }

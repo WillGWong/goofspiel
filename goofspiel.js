@@ -56,7 +56,6 @@ const addChallenger = (player2Id) => {
       console.error("NO AVAILABLE GAMES")
       return res;
     } else {
-      // console.log("query results", res.length);
       const index = getRandomInt(res.length);
       const matchId = res[index].id;
       const matchState = res[index].match_state;

@@ -17,20 +17,24 @@
 
     <div>
         <% include ./partials/_navbar %>
-    </div>
-    <br>
+      </div>
+      <br>
 
     <header>
       <div class="prize">
           <h1 class="bounty">BOUNTY</h1>
           <img src='/images/prize<%=matchState["prize"]["faceUp"]%>.png' height=200 width=150 style="border:double" >
       </div>
+      <header>
+
+      <form action="/bid" method="POST"><input type="number"><button>Bid</button>
       <div class="playercards">
     <% if (player === 1|| player === null) {%>
     <% for(let card of matchState["player1"]["hand"]) {%>
       <input type="image" class="singlecard" src='/images/number<%=[card]%>.jpg'>
     <% }}%>
       </div>
+    </form>
   </header>
   </body>
 </html>

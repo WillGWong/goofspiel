@@ -9,7 +9,7 @@ const pool = new Pool({
 // get a list of players in a match
 const getPlayersFromMatch = (matchId) => {
   return pool.query(`
-  SELECT player1_id AS player1, player2_id AS player2
+  SELECT id, player1_id AS player1, player2_id AS player2
   FROM matches
   WHERE id = $1
   `, [matchId])

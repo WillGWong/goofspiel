@@ -23,5 +23,24 @@ module.exports = (db) => {
           .json({ error: err.message });
       });
   });
+
+  router.get("/:match_id", (req, res) => {
+    let query = `
+    SELECT * FROM matches
+    WHERE id = $1
+    `;
+    console.log(query);
+    db.query(query, [req.params.match_id])
+      .then(data => {
+        const matches = data.rows;
+        res.json({ matches });
+      })
+      .catch(err => {
+        res
+          .status(500)
+          .json({ error: err.message });
+      });
+  });
+
   return router;
 };

@@ -34,9 +34,16 @@
 
           The winner is the player with the highest cumulative value of prizes won</p>
       <div class="game-show-buttons">
-      <button class="playgame">PLAY GAME</button>
-      <button class="viewmatches">VIEW MATCHES</button>
-    </div>
+        <form action="/newgame/" method="POST">
+          <button class="playgame">CREATE NEW GAME</button>
+        </form>
+        <form action="/join/" method="POST">
+          <button class="playgame">JOIN GAME</button>
+        </form>
+        <form action="/matches/" method="GET">
+          <button class="viewmatches">VIEW MATCHES</button>
+        </form>
+      </div>
     </header>
 
   </body>

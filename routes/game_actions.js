@@ -21,7 +21,7 @@ router.use(cookieSession({
  module.exports = (db) => {
 
   // start a new game
-  router.post("/titles/:title_id/matches/:match_id/newgame", (req, res) => {
+  router.post("/titles/:title_id/newgame/", (req, res) => {
     const titleId = req.params.title_id;
     goofspiel.initializeGame(req.session.user_id)
     .then(resolve => {

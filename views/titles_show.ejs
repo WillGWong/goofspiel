@@ -20,6 +20,17 @@
     <header>
       <div class="leaderboard">LEADERBOARD</div>
         <img class="goof-pic" src="https://i.imgur.com/nEHg7Pb.jpg" height="350" width="350">
+      <div class="game-show-buttons">
+        <form action="newgame/" method="POST">
+          <button class="playgame" style="margin-left:88px">CREATE NEW GAME</button>
+        </form>
+        <form action="/join/" method="POST">
+          <button class="playgame" style="margin-left:120px">JOIN GAME</button>
+        </form>
+        <form action="/matches/" method="GET">
+          <button class="viewmatches" style="margin-left:88px">VIEW MATCHES</button>
+        </form>
+      </div>
       <p class="gamedesc">2 player game
 
           The objective of the game is to accumulate the most value in prizes by strategically bidding on them.
@@ -33,17 +44,6 @@
           prize pool until there are no more tokens (or prizes) left.
 
           The winner is the player with the highest cumulative value of prizes won</p>
-      <div class="game-show-buttons">
-        <form action="/newgame/" method="POST">
-          <button class="playgame">CREATE NEW GAME</button>
-        </form>
-        <form action="/join/" method="POST">
-          <button class="playgame">JOIN GAME</button>
-        </form>
-        <form action="/matches/" method="GET">
-          <button class="viewmatches">VIEW MATCHES</button>
-        </form>
-      </div>
     </header>
 
   </body>

@@ -39,9 +39,11 @@ header {
 .game-show-buttons{
   margin-left: auto;
   margin-right: auto;
-  margin-bottom: 52px;
-  justify-content: space-around;
-  font-size: 35px
+  font-size: 35px;
+  font-family: 'ChineseRocksRg-Regular';
+  flex-direction: column;
+  align-items: center;
+
 }
 
 .playgame {

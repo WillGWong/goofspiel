@@ -70,7 +70,7 @@ module.exports = (db) => {
         matchState : matchData[0]["match_state"],
         player: checkPlayerById(req.session.user_id, matchData[0]["match_state"])
       }
-      console.log("hi", templateVars["matchState"]["player1"]["hand"])
+      //console.log("hi", templateVars["matchState"])
       res.render("match_play", templateVars);
     })
   })

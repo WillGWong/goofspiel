@@ -21,14 +21,17 @@
     <br>
 
     <header>
-      <div class="prize">PRIZE
-          <img src='/images/number<%=matchState["prize"]["faceUp"]%>.jpg' height="400" width="250">
+      <div class="prize">
+          <h1 class="bounty">BOUNTY</h1>
+          <img src='/images/prize<%=matchState["prize"]["faceUp"]%>.png' height=200 width=150 style="border:double" >
       </div>
-    </header>
+      <div class="playercards">
     <% if (player === 1|| player === null) {%>
     <% for(let card of matchState["player1"]["hand"]) {%>
-      <img src='/images/number<%=[card]%>.jpg' height="400" width="250">
+      <input type="image" class="singlecard" src='/images/number<%=[card]%>.jpg'>
     <% }}%>
+      </div>
+  </header>
   </body>
 </html>
 

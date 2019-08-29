@@ -11,8 +11,45 @@ header {
   justify-content: center;
 }
 
-.prize {
+.bounty {
   display: flex;
   justify-content: flex-end;
-  align-items: flex-start
+  font-family: 'ChineseRocksRg-Regular';
+  text-decoration: underline;
+  padding: 5px;
+  font-size: 40px;
+  margin: 0px
+
+}
+
+.prize {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-start;
+  padding: 30px;
+  top: -10px;
+
+}
+
+.playercards {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.singlecard {
+  border: double;
+  margin: 5px;
+  height: 320px;
+  width: 200px;
+
+  &:hover {
+    position: relative;
+    top: -75px;
+  }
+
+  &:active {
+    border-color: yellow
+  }
 }

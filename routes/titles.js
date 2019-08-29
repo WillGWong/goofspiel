@@ -52,6 +52,7 @@ module.exports = (db) => {
     let templateVars = ""
     getMatchStateById(req.params.match_id)
     .then(matchData => {
+      console.log(matchData[0].match_state)
       templateVars = {
         user_id: req.session.user_id? req.session.user_id : null,
         email: req.session.user_id? req.session.email : null,
@@ -60,8 +61,11 @@ module.exports = (db) => {
         matchState : matchData[0]["match_state"],
         player: checkPlayerById(req.session.user_id, matchData[0]["match_state"])
       }
-      console.log("hi", templateVars["matchState"])
-      res.render("match_play", templateVars);
+      if (matchData[0].match_state.prize.hand.length !== 0) {
+        res.render("match_play", templateVars);
+      } else {
+        res.render("match_end", templateVars)
+      }
     })
   })
 

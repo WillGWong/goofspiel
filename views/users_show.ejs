@@ -21,24 +21,65 @@
     </nav>
 
   <main>
-      <h3>USER ID</h3>
-    <table class="table">
-      <thead>
-        <tr>
-          <th scope="col">Game ID</th>
-          <th scope="col">Game Type</th>
-          <th scope="col">Opponent</th>
-          <th scope="col">User Score</th>
-          <th scope="col">Opponent Score</th>
-          <th scope="col">Round #</th>
-          <th scope="col">Winner</th>
-          <th scope="col">Your Turn</th>
-        </tr>
-      </thead>
+      <h3 class="displayname"><%= displayemail %></h3>
       <tbody>
+        <div id="matchlist">
+        <ul class="showid">
+            <div style="font-size:30px; text-decoration:underline">Game ID</div>
+          <% for(let id of matchIds) { %>
+            <li><%= id %></li>
+          <% } %>
+        </ul>
+
+        <ul class="showtitle">
+            <div style="font-size:30px; text-decoration:underline;">Game Type</div>
+            <% for(let title of titles) { %>
+              <li><%= title %></li>
+            <% } %>
+        </ul>
+        <ul class="showplayer1">
+            <div style="font-size: 30px; text-decoration: underline;">Player 1</div>
+            <% for(let player of players) { %>
+              <li><%= player[0] %></li>
+            <% } %>
+        </ul>
+        <ul class="showplayer2">
+            <div style="font-size: 30px; text-decoration: underline;">Player 2</div>
+            <% for(let player of players) { %>
+              <li><%= player[1] %></li>
+            <% } %>
+        </ul>
+        <ul class="showscore1">
+            <div style="font-size: 30px; text-decoration: underline;">Player 1 Score</div>
+            <% for(let score of scores) { %>
+              <li><%= score[0] %></li>
+            <% } %>
+        </ul>
+        <ul class="showscore2">
+            <div style="font-size: 30px; text-decoration: underline;">Player 2 Score</div>
+            <% for(let score of scores) { %>
+              <li><%= score[1] %></li>
+            <% } %>
+        </ul>
+        <ul class="showwinner">
+            <div style="font-size: 30px; text-decoration: underline;">Winner</div>
+            <% for(let winner of winners) { %>
+              <li><%= winner %></li>
+            <% } %>
+        </ul>
+        <ul >
+            <div style="font-size: 30px; text-decoration: underline; font-family: 'ChineseRocksRg-Regular'">Inspect</div>
+            <% for(let id of matchIds) { %>
+              <td>
+                  <form method="GET" action="/titles/1/matches/<%=id%>">
+                    <button class="showplay" type="submit" >VIEW</button>
+                  </form>
+              </td>
+            <% } %>
+        </ul>
+      </div>
 
       </tbody>
-    </table>
   </main>
 
 </body>

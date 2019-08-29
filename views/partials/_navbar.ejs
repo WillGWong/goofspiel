@@ -3,7 +3,7 @@
     <a class="nav-games" href="/titles">Titles</a>
     <a class="nav-users" href="/users">Users</a>
     <% if (user_id) {%>
-    <a class="nav-username" href="/users/:user_id"><%= email %></a>
+    <a class="nav-username" href="/users/<%= user_id %>"><%= email %></a>
     <form method="POST" action="/login/logout">
       <button class="nav-logout" type="submit" >Logout</button >
     </form>

@@ -47,6 +47,7 @@ const loginRoutes = require("./routes/login");
 const usersRoutes = require("./routes/users");
 const titlesRoutes = require("./routes/titles");
 const logoutRoutes = require("./routes/logout");
+const gameActionsRoutes = require("./routes/game_actions");
 
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
@@ -57,6 +58,7 @@ app.use("/login", loginRoutes(db));
 app.use("/users", usersRoutes(db));
 app.use("/titles", titlesRoutes(db));
 app.use("/logout", logoutRoutes(db));
+app.use("/", gameActionsRoutes(db));
 // Note: mount other resources here, using the same pattern above
 
 

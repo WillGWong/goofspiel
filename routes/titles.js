@@ -35,6 +35,7 @@ module.exports = (db) => {
     } else {
       templateVars = { user_id: null }
     }
+    console.log(templateVars);
     res.render("titles_show", templateVars);
   });
 

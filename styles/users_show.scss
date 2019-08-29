@@ -11,18 +11,22 @@ main {
   justify-content: center;
 }
 
-tr {
-  font-size: 26px;
-  text-decoration: underline;
-  font-family: 'ChineseRocksRg-Regular';
-  letter-spacing: 1px;
-}
-
 h3 {
   margin-top: -400px;
   font-size: 45px;
   font-family: 'ChineseRocksRg-Regular';
   margin-left: 30px;
+}
+
+.displayname {
+  letter-spacing: 4px
+}
+
+#matchlist {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  line-height: 35px
 }
 
 .showid {
@@ -39,4 +43,58 @@ h3 {
   list-style-type:none;
   font-family: 'ChineseRocksRg-Regular';
   font-size: 20px;
+}
+
+.showplayer1 {
+  display: flex;
+  flex-direction: column;
+  list-style-type:none;
+  font-family: 'ChineseRocksRg-Regular';
+  font-size: 20px;
+}
+
+.showplayer2 {
+  display: flex;
+  flex-direction: column;
+  list-style-type:none;
+  font-family: 'ChineseRocksRg-Regular';
+  font-size: 20px;
+}
+
+.showscore1 {
+  display: flex;
+  flex-direction: column;
+  list-style-type:none;
+  font-family: 'ChineseRocksRg-Regular';
+  font-size: 20px;
+}
+
+.showscore2 {
+  display: flex;
+  flex-direction: column;
+  list-style-type:none;
+  font-family: 'ChineseRocksRg-Regular';
+  font-size: 20px;
+}
+
+.showwinner {
+  display: flex;
+  flex-direction: column;
+  list-style-type:none;
+  font-family: 'ChineseRocksRg-Regular';
+  font-size: 20px;
+}
+
+.showplay {
+  display: flex;
+  flex-direction: column;
+  list-style-type:none;
+  font-family: 'ChineseRocksRg-Regular';
+  font-size: 22px;
+  border: none;
+  background: transparent;
+  &:hover {
+    color: antiquewhite;
+    background: black
+  }
 }

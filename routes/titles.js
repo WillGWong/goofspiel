@@ -18,7 +18,7 @@ module.exports = (db) => {
     res.render("titles_index", templateVars);
   });
 
-  router.get("/:title_id", (req, res) => {
+  router.get("/1", (req, res) => {
     let templateVars = ""
     if (req.session.user_id) {
     templateVars = req.session

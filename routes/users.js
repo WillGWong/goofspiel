@@ -51,6 +51,7 @@ module.exports = (db) => {
     let titleArr =[]
     let playerArr = []
     let idArr = []
+    let winnerArr =[]
     if (req.session.user_id) {
       userinfo = req.session.user_id
     } else {
@@ -62,11 +63,12 @@ module.exports = (db) => {
       titleArr = getGameType(res)
       playerArr = getPlayers(res)
       idArr = getID(res)
+      winnerArr = getWinner(res)
     })
     getEmailById(req.params.user_id)
     .then(email => {
       useremail = email
-      let templateVars = { scores: scoreArr, user_id: userinfo, displayemail: useremail, titles: titleArr, players: playerArr, matchIds: idArr }
+      let templateVars = { scores: scoreArr, user_id: userinfo, displayemail: useremail, titles: titleArr, players: playerArr, matchIds: idArr, winners: winnerArr }
       res.render(`users_show`, templateVars)
     })
   })
@@ -125,6 +127,18 @@ const getID = (matches) => {
   let resultArr = []
   for (let match of matches) {
     resultArr.push(match["id"])
+  }
+  return resultArr
+}
+
+const getWinner = (matches) => {
+  let resultArr = []
+  for (let match of matches) {
+    if ( match["match_winner_id"] === null) {
+      resultArr.push("TBD")
+    } else {
+      resultArr.push(match["match_winner_id"])
+    }
   }
   return resultArr
 }

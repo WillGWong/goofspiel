@@ -9,8 +9,10 @@ const {
   getMatchIdsFromPlayerId,
   get1PlayerMatchStates,
   writePlayer2,
-  writeMatchOutcome
+  writeMatchOutcome,
+  getPlayersFromMatch
 } = require('./queryHelpers')
+
 const CARDS_PER_HAND = 7;
 const TITLE_ID = 1;
 
@@ -44,14 +46,15 @@ const initializeGame = (player1Id) => {
   .then(res => {
     return writeMatchState(drawPrizeCard(res.match_state), res.id);
   })
+  .catch(err => console.error(err))
 }
 
 const addChallenger = (player2Id) => {
-  return get1PlayerMatchStates()
+  return get1PlayerMatchStates(player2Id)
   .then(res => {
-    // console.log("addChallenger", res)
     if (res.length === 0) {
-      return console.error("no empty matches")
+      console.error("NO AVAILABLE GAMES")
+      return res;
     } else {
       // console.log("query results", res.length);
       const index = getRandomInt(res.length);
@@ -59,11 +62,12 @@ const addChallenger = (player2Id) => {
       const matchState = res[index].match_state;
       matchState.player2.id = player2Id;
       return writeMatchState(matchState, matchId)
+      .then(res => {
+        return writePlayer2(res.match_state.player2.id, res.id);
+      })
     }
   })
-  .then(res => {
-    return writePlayer2(res.match_state.player2.id, res.id);
-  })
+  .catch(err => console.error(err))
 }
 
 const dealCards = (matchState) => {
@@ -94,15 +98,18 @@ const bidCard = (matchId, playerNum, cardValue) => {
       return element == cardValue;
     });
 
-    if (cardIndex === -1) {
-      console.log("cardValue not found in hand")
+    if (matchState[playerNum].bid != null) {
+      console.error("bid already entered")
+      return;
+    } else if (cardIndex === -1) {
+      console.error("cardValue not found in hand")
       return;
     } else {
       playerMatchState.bid = playerMatchState.hand.splice(cardIndex, 1)[0]
-      // console.log(matchState)
       writeMatchState(matchState, res.id)
     }
   })
+  .catch(err => console.error(err))
 }
 
 const resolveRound = (matchId) => {
@@ -130,9 +137,11 @@ const resolveRound = (matchId) => {
         if (res.match_state.prize.hand.length === 0) {
           return resolveMatch(res.id);
         }
-      });
+      })
+      .catch(err => console.error(err))
     }
   })
+  .catch(err => console.error(err))
 }
 
 const resolveMatch = (matchId) => {
@@ -152,9 +161,22 @@ const resolveMatch = (matchId) => {
   })
 }
 
+module.exports = {
+  getRandomInt,
+  initializeGame,
+  addChallenger,
+  dealCards,
+  drawPrizeCard,
+  bidCard,
+  resolveRound,
+  resolveMatch
+}
+
 const runGame = async () => {
-  // await initializeGame(1);
-  // await addChallenger(2);
+  // console.log('running game...')
+  // await initializeGame(3);
+  // const challengerReturn = await addChallenger(3);
+  // console.log(challengerReturn);
   // await bidCard(6, 'player1', 1);
   // await bidCard(6, 'player2', 2);
   // await resolveRound(6);

@@ -24,3 +24,19 @@ h3 {
   font-family: 'ChineseRocksRg-Regular';
   margin-left: 30px;
 }
+
+.showid {
+  display: flex;
+  flex-direction: column;
+  list-style-type:none;
+  font-family: 'ChineseRocksRg-Regular';
+  font-size: 20px;
+}
+
+.showtitle {
+  display: flex;
+  flex-direction: column;
+  list-style-type:none;
+  font-family: 'ChineseRocksRg-Regular';
+  font-size: 20px;
+}

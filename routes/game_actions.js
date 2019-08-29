@@ -21,7 +21,7 @@ router.use(cookieSession({
  module.exports = (db) => {
 
   // start a new game
-  router.post("/newgame", (req, res) => {
+  router.post("/titles/:title_id/matches/:match_id/newgame", (req, res) => {
     const titleId = req.params.title_id;
     goofspiel.initializeGame(req.session.user_id)
     .then(resolve => {
@@ -32,7 +32,7 @@ router.use(cookieSession({
   })
 
   // join a game as a challenger
-  router.post("/join", (req, res) => {
+  router.post("/titles/:title_id/join", (req, res) => {
     const titleId = req.params.title_id;
     const userId = req.session.user_id;
     return goofspiel.addChallenger(userId)
@@ -46,7 +46,7 @@ router.use(cookieSession({
   })
 
   // make a bid player_bid
-  router.post("/bid", (req, res) => {
+  router.post("/titles/:title_id/matches/:match_id/bid", (req, res) => {
     const titleId = req.params.title_id;
     const matchId = req.params.match_id;
     const userId = req.session.user_id;

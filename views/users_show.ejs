@@ -21,72 +21,39 @@
     </nav>
 
   <main>
-      <h3 class="displayname"><%= displayemail %></h3>
-      <tbody>
-        <div id="matchlist">
-        <ul class="showid">
-            <div style="font-size:30px; text-decoration:underline">Game ID</div>
-          <% for(let id of matchIds) { %>
-            <li><%= id %></li>
+      <h3 class="displayname"><%= user_email %></h3>
+      <table>
+        <tr>
+          <th>Match id</th>
+          <th>Game Title</th>
+          <th>Player 1</th>
+          <th>Player 2</th>
+          <th>Player 1 Score</th>
+          <th>Player 2 Score</th>
+          <th>Winner</th>
+          <th>Action</th>
+        </tr>
+        <% for (const match of matches) { %>
+        <tr>
+          <td><%= match.id %></td>
+          <td><%= match.game_type %></td>
+          <td><%= match.player_1 %></td>
+          <td><%= match.player_2 %></td>
+          <td><%= match.match_state.player1.score %></td>
+          <td><%= match.match_state.player2.score %></td>
+          <td><%= match.match_winner_id %></td>
+          <td>
+            <form method="GET" action="/titles/1/matches/<%= match.id %>/">
+              <% if ( (user_id !== match.match_state.player1.id && user_id !== match.match_state.player2.id) || match.match_state.prize.hand.length === 0) { %>
+              <button class="showplay" type="submit" >VIEW</button>
+              <% } else { %>
+              <button class="showplay" type="submit" >PLAY</button>
+              <% } %>
+            </form>
+          </td>
+        </tr>
           <% } %>
-        </ul>
-
-        <ul class="showtitle">
-            <div style="font-size:30px; text-decoration:underline;">Game Type</div>
-            <% for(let title of titles) { %>
-              <li><%= title %></li>
-            <% } %>
-        </ul>
-        <ul class="showplayer1">
-            <div style="font-size: 30px; text-decoration: underline;">Player 1</div>
-            <% for(let player of players) { %>
-              <li><%= player[0] %></li>
-            <% } %>
-        </ul>
-        <ul class="showplayer2">
-            <div style="font-size: 30px; text-decoration: underline;">Player 2</div>
-            <% for(let player of players) { %>
-              <li><%= player[1] %></li>
-            <% } %>
-        </ul>
-        <ul class="showscore1">
-            <div style="font-size: 30px; text-decoration: underline;">Player 1 Score</div>
-            <% for(let score of scores) { %>
-              <li><%= score[0] %></li>
-            <% } %>
-        </ul>
-        <ul class="showscore2">
-            <div style="font-size: 30px; text-decoration: underline;">Player 2 Score</div>
-            <% for(let score of scores) { %>
-              <li><%= score[1] %></li>
-            <% } %>
-        </ul>
-        <ul class="showwinner">
-            <div style="font-size: 30px; text-decoration: underline;">Winner</div>
-            <% for(let winner of winners) { %>
-              <li><%= winner %></li>
-            <% } %>
-        </ul>
-        <ul >
-            <div style="font-size: 30px; text-decoration: underline; font-family: 'ChineseRocksRg-Regular'">Inspect</div>
-            <% for(let i = 0; i < matchIds.length; i++) { %>
-                <% if(isTurn[i] === false) { %>
-              <td>
-                  <form method="GET" action="/titles/1/matches/<%=matchIds[i]%>/">
-                    <button class="showplay" type="submit" >VIEW</button>
-                  </form>
-              </td>
-              <% } else {%>
-                <td>
-                    <form method="GET" action="/titles/1/matches/<%=matchIds[i]%>/">
-                      <button class="showplay" type="submit" >PLAY</button>
-                    </form>
-                </td>
-            <% }} %>
-        </ul>
-      </div>
-
-      </tbody>
+      </table>
   </main>
 
 </body>

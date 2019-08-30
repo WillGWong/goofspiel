@@ -43,17 +43,7 @@ module.exports = (db) => {
 
   });
 
-
   router.get("/:user_id", (req, res) => {
-    let userinfo = ""
-    let useremail = ""
-    let scoreArr = []
-    let playeremail = ""
-    let titleArr =[]
-    let playerArr = []
-    let idArr = []
-    let winnerArr =[]
-    let bidArr = []
     if (req.session.user_id) {
       userinfo = req.session.user_id
       useremail = req.session.email
@@ -61,30 +51,15 @@ module.exports = (db) => {
       userinfo = null
     }
     getMatchDataByID(req.params.user_id)
-    .then(res => {
-      for (let match of res) {
-        bidArr.push(isUserTurn(req.session.user_id, match))
-      }
-      scoreArr = getScores(res)
-      titleArr = getGameType(res)
-      playerArr = getPlayers(res)
-      idArr = getID(res)
-      winnerArr = getWinner(res)
-    })
-    getEmailById(req.params.user_id)
-    .then(email => {
-      playeremail = email
-      let templateVars = { scores: scoreArr,
-        user_id: userinfo,
-        email: useremail,
-        displayemail: playeremail,
-        titles: titleArr,
-        players: playerArr,
-        matchIds: idArr,
-        winners: winnerArr,
-        isTurn: bidArr
-       }
-      res.render(`users_show`, templateVars)
+    .then(data => {
+      return getEmailById(req.params.user_id)
+      .then(email => {
+        return res.render('users_show', {
+          user_id: req.session.user_id,
+          user_email: email,
+          matches: data
+        });
+      })
     })
   })
 

@@ -63,8 +63,8 @@ module.exports = (db) => {
       templateVars = {
         user_id: req.session.user_id? req.session.user_id : null,
         email: req.session.user_id? req.session.email : null,
-        winner: matchData[0].match_winner_id? matchData[0].match_winner_id : null,
-        loser: matchData[0].match_loser_id? matchData[0].match_loser_id : null,
+        winner: matchData[0].winner? matchData[0].winner : null,
+        loser: matchData[0].loser? matchData[0].loser : null,
         matchState : matchData[0]["match_state"],
         player: checkPlayerById(req.session.user_id, matchData[0]["match_state"])
       }
@@ -85,9 +85,11 @@ module.exports = (db) => {
 
 const getMatchStateById = (match_id) => {
   return pool.query(`
-  SELECT match_state, match_winner_id, match_loser_id
+  SELECT match_state, match_winner_id, match_loser_id, winner.email AS winner, loser.email AS loser
   FROM matches
-  WHERE id = $1
+  JOIN users winner ON match_winner_id = winner.id
+  JOIN users loser ON match_loser_id = loser.id
+  WHERE matches.id = $1
   `, [match_id])
   .then(res => {
     return res.rows;

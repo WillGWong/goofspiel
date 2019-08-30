@@ -35,26 +35,26 @@
           </form>
       </div>
 
-          <% if (player === 1|| player === null) {%>
-            <div class="scoredisplay">
-                    <div class="playerscore">COLLECTED: $<%=matchState["player1"]["score"]%></div>
-                    <div class="enemyscore">RIVAL: $<%=matchState["player2"]["score"]%></div>
-                  </div>
-        <div class="playercards">
+      <% if (player === 1|| player === null) {%>
+        <div class="scoredisplay">
+          <div class="playerscore">COLLECTED: $<%=matchState["player1"]["score"]%></div>
+          <div class="enemyscore">RIVAL: $<%=matchState["player2"]["score"]%></div>
+        </div>
+      <div class="playercards">
         <% for(let card of matchState["player1"]["hand"]) {%>
             <input type="image" class="singlecard" id="<%=[card]%>" src='/images/number<%=[card]%>.jpg'>
         <% }}%>
       </div>
 
-        <% if (player === 2) {%>
-          <div class="scoredisplay">
-            <div class="playerscore">COLLECTED: $<%=matchState["player2"]["score"]%></div>
-            <div class="enemyscore">RIVAL: $<%=matchState["player1"]["score"]%></div>
-          </div>
+      <% if (player === 2) {%>
+        <div class="scoredisplay">
+          <div class="playerscore">COLLECTED: $<%=matchState["player2"]["score"]%></div>
+          <div class="enemyscore">RIVAL: $<%=matchState["player1"]["score"]%></div>
+        </div>
       <div class="playercards">
-  <% for(let card of matchState["player2"]["hand"]) {%>
-    <img type="image" class="singlecard" id="<%=[card]%>" src='/images/number<%=[card]%>.jpg'>
-  <% }}%>
+        <% for(let card of matchState["player2"]["hand"]) {%>
+          <img type="image" class="singlecard" id="<%=[card]%>" src='/images/number<%=[card]%>.jpg'>
+        <% }}%>
 </div>
   </header>
   </body>

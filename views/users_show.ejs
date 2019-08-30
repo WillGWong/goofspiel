@@ -23,31 +23,29 @@
   <main>
       <h3 class="displayname"><%= player_email %></h3>
       <table>
-        <tr>
+        <tr class="datalabel">
           <th>Match id</th>
           <th>Game Title</th>
           <th>Player 1</th>
           <th>Player 2</th>
           <th>Player 1 Score</th>
           <th>Player 2 Score</th>
-          <th>Winner</th>
           <th>Action</th>
         </tr>
         <% for (const match of matches) { %>
-        <tr>
-          <td><%= match.id %></td>
+        <tr class="matchdata">
+          <td ><%= match.id %></td>
           <td><%= match.game_type %></td>
           <td><%= match.player_1 %></td>
           <td><%= match.player_2 %></td>
           <td><%= match.match_state.player1.score %></td>
           <td><%= match.match_state.player2.score %></td>
-          <td><%= match.match_winner_id %></td>
           <td>
             <form method="GET" action="/titles/1/matches/<%= match.id %>/">
               <% if ( (user_id !== match.match_state.player1.id && user_id !== match.match_state.player2.id) || match.match_state.prize.hand.length === 0) { %>
-              <button class="showplay" type="submit" >VIEW</button>
+              <button class="showplay" type="submit" style="margin-left: 50px">VIEW</button>
               <% } else { %>
-              <button class="showplay" type="submit" >PLAY</button>
+              <button class="showplay" type="submit" style="margin-left: 50px">PLAY</button>
               <% } %>
             </form>
           </td>

@@ -68,7 +68,6 @@ app.use("/", gameActionsRoutes(db));
 app.get("/", (req, res) => {
   if (req.session.user_id) {
     let templateVars = req.session
-    console.log(templateVars)
     res.render("index", templateVars)
   } else {
     let templateVars = { user_id: null }

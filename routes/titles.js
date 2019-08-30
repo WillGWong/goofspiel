@@ -19,20 +19,20 @@ const pool = new Pool({
 
 module.exports = (db) => {
   router.get("/", (req, res) => {
-    let templateVars = ""
+    let templateVars = "";
     if (req.session.user_id) {
-    templateVars = req.session
+    templateVars = req.session;
     } else {
-    templateVars = { user_id: null }
+    templateVars = { user_id: null };
     }
     res.render("titles_index", templateVars);
   });
 
   // show a list of game titles
   router.get("/:title_id", (req, res) => {
-    let templateVars = ""
+    let templateVars = "";
     if (req.session.user_id) {
-      templateVars = req.session
+      templateVars = req.session;
       queryHelpers.getLeaderboard()
       .then(leaderboard => {
         templateVars.leaderboard = leaderboard;
@@ -41,24 +41,21 @@ module.exports = (db) => {
     } else {
       templateVars = {
         user_id: null,
-      }
+      };
       res.render("titles_show", templateVars);
     }
   });
 
-  // show a list of active matches
-  router.get("/:title_id/matches", (req, res) => {
-    let templateVars = {
-      user_id: req.session.user_id? req.session.user_id : null,
-      user_email: req.session.user_email? req.session.user_email : null
-    }
-    res.render("matches_index", templateVars)
-  })
 
   // show a specific match
   router.get("/:title_id/matches/:match_id", (req, res) => {
+<<<<<<< HEAD
     let templateVars = ""
     return getMatchStateById(req.params.match_id)
+=======
+    let templateVars = "";
+    getMatchStateById(req.params.match_id)
+>>>>>>> finaltweaks
     .then(matchData => {
       const matchState = matchData[0].match_state;
       templateVars = {
@@ -68,11 +65,19 @@ module.exports = (db) => {
         loser: matchData[0].loser? matchData[0].loser : null,
         matchState : matchData[0]["match_state"],
         player: checkPlayerById(req.session.user_id, matchData[0]["match_state"])
+<<<<<<< HEAD
       }
       if (matchState.prize.hand.length === 0 && matchState.player1.hand.length === 0 && matchState.player2.hand.length === 0) {
         return res.render("match_end", templateVars)
       } else {
         return res.render("match_play", templateVars);
+=======
+      };
+      if (matchData[0].match_state.prize.hand.length !== 0) {
+        res.render("match_play", templateVars);
+      } else {
+        res.render("match_end", templateVars);
+>>>>>>> finaltweaks
       }
     })
   })
@@ -98,10 +103,10 @@ const getMatchStateById = (match_id) => {
 
 const checkPlayerById = function (userId, matchData) {
   if (userId === matchData["player1"]["id"]) {
-    return 1
+    return 1;
   } else if (userId === matchData["player2"]["id"]) {
-    return 2
+    return 2;
   } else {
-    return null
+    return null;
   }
 }

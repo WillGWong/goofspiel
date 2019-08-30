@@ -133,7 +133,7 @@ const resolveRound = (matchId) => {
       drawPrizeCard(matchState);
       return writeMatchState(matchState, res.id)
       .then(res => {
-        if (res.match_state.prize.hand.length === 0) {
+        if (res.match_state.prize.hand.length === 0 && res.match_state.player1.hand.length === 0 && res.match_state.player2.hand.length === 0) {
           return resolveMatch(res.id);
         }
       })
@@ -144,18 +144,18 @@ const resolveRound = (matchId) => {
 }
 
 const resolveMatch = (matchId) => {
-  readMatchState(matchId)
+  return readMatchState(matchId)
   .then(res => {
     let matchState = Object.assign({}, res.match_state);
     // console.log(matchState);
-    const p1Score = res.match_state.player1.score;
-    const p2Score = res.match_state.player2.score;
+    const p1Score = matchState.player1.score;
+    const p2Score = matchState.player2.score;
     if (p1Score === p2Score) {
-      writeMatchOutcome(res.id, null, null);
+      return writeMatchOutcome(res.id, null, null);
     } else if (p1Score > p2Score) {
-      writeMatchOutcome(res.id, res.match_state.player1.id, res.match_state.player2.id);
+      return writeMatchOutcome(res.id, matchState.player1.id, matchState.player2.id);
     } else {
-      writeMatchOutcome(res.id, res.match_state.player2.id, res.match_state.player1.id);
+      return writeMatchOutcome(res.id, matchState.player2.id, matchState.player1.id);
     }
   })
 }

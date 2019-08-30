@@ -65,7 +65,6 @@ module.exports = (db) => {
       for (let match of res) {
         bidArr.push(isUserTurn(req.session.user_id, match))
       }
-      console.log(bidArr)
       scoreArr = getScores(res)
       titleArr = getGameType(res)
       playerArr = getPlayers(res)
@@ -85,7 +84,6 @@ module.exports = (db) => {
         winners: winnerArr,
         isTurn: bidArr
        }
-       console.log(bidArr)
       res.render(`users_show`, templateVars)
     })
   })

@@ -37,6 +37,7 @@ router.use(cookieSession({
     const userId = req.session.user_id;
     return goofspiel.addChallenger(userId)
     .then(result => {
+      console.log(result)
       if (result.length === 0) {
         console.error("NO MATCHES FOUND")
       } else {

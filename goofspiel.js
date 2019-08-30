@@ -147,14 +147,9 @@ const resolveMatch = (matchId) => {
   return readMatchState(matchId)
   .then(res => {
     let matchState = Object.assign({}, res.match_state);
-<<<<<<< HEAD
     // console.log(matchState);
     const p1Score = matchState.player1.score;
     const p2Score = matchState.player2.score;
-=======
-    const p1Score = res.match_state.player1.score;
-    const p2Score = res.match_state.player2.score;
->>>>>>> finaltweaks
     if (p1Score === p2Score) {
       return writeMatchOutcome(res.id, null, null);
     } else if (p1Score > p2Score) {

@@ -49,13 +49,8 @@ module.exports = (db) => {
 
   // show a specific match
   router.get("/:title_id/matches/:match_id", (req, res) => {
-<<<<<<< HEAD
     let templateVars = ""
     return getMatchStateById(req.params.match_id)
-=======
-    let templateVars = "";
-    getMatchStateById(req.params.match_id)
->>>>>>> finaltweaks
     .then(matchData => {
       const matchState = matchData[0].match_state;
       templateVars = {
@@ -65,19 +60,11 @@ module.exports = (db) => {
         loser: matchData[0].loser? matchData[0].loser : null,
         matchState : matchData[0]["match_state"],
         player: checkPlayerById(req.session.user_id, matchData[0]["match_state"])
-<<<<<<< HEAD
       }
       if (matchState.prize.hand.length === 0 && matchState.player1.hand.length === 0 && matchState.player2.hand.length === 0) {
         return res.render("match_end", templateVars)
       } else {
         return res.render("match_play", templateVars);
-=======
-      };
-      if (matchData[0].match_state.prize.hand.length !== 0) {
-        res.render("match_play", templateVars);
-      } else {
-        res.render("match_end", templateVars);
->>>>>>> finaltweaks
       }
     })
   })

@@ -169,7 +169,8 @@ const getMatchDataByID = (user_id) => {
   LEFT JOIN users a ON matches.player1_id = a.id
   LEFT JOIN users b ON matches.player2_id = b.id
   WHERE player1_id = $1
-  OR player2_id = $1;
+  OR player2_id = $1
+  ORDER BY matches.id;
   `, [user_id])
   .then(res => {
     return res.rows;

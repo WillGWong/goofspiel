@@ -57,7 +57,7 @@ module.exports = (db) => {
     .then(result => {
       // console.log(result)
       req.session.user_id  = result.id;
-      req.session.email  = req.body.email;
+      req.session.user_email  = req.body.email;
       res.redirect("/")
     })
     .catch(err => console.error(err));

@@ -50,7 +50,7 @@ module.exports = (db) => {
   router.get("/:title_id/matches", (req, res) => {
     let templateVars = {
       user_id: req.session.user_id? req.session.user_id : null,
-      email: req.session.user_id? req.session.email : null
+      user_email: req.session.user_email? req.session.user_email : null
     }
     res.render("matches_index", templateVars)
   })
@@ -62,7 +62,7 @@ module.exports = (db) => {
     .then(matchData => {
       templateVars = {
         user_id: req.session.user_id? req.session.user_id : null,
-        email: req.session.user_id? req.session.email : null,
+        user_email: req.session.user_email? req.session.user_email : null,
         winner: matchData[0].winner? matchData[0].winner : null,
         loser: matchData[0].loser? matchData[0].loser : null,
         matchState : matchData[0]["match_state"],

@@ -24,7 +24,7 @@
       <div class="homepagebuttons">
           <% if (user_id) {%>
       <a class="loginbutton" href="/users/<%= user_id %>">
-        <%= email %>
+        <%= user_email %>
       </a>
       <% } else {%>
       <a href="/login">

@@ -30,13 +30,13 @@ module.exports = (db) => {
     if (req.session.user_id) {
       getEmailandID()
       .then(result => {
-        templateVars = { users: result, user_id: req.session.user_id, email: req.session.email}
+        templateVars = { users: result, user_id: req.session.user_id, user_email: req.session.user_email}
         res.render("users_index", templateVars);
       })
     } else {
       getEmailandID()
       .then(result => {
-        templateVars = { users: result, user_id: null, email: null}
+        templateVars = { users: result, user_id: null, user_email: null}
         res.render("users_index", templateVars);
       })
     }
@@ -44,19 +44,14 @@ module.exports = (db) => {
   });
 
   router.get("/:user_id", (req, res) => {
-    if (req.session.user_id) {
-      userinfo = req.session.user_id
-      useremail = req.session.email
-    } else {
-      userinfo = null
-    }
-    getMatchDataByID(req.params.user_id)
+    return getMatchDataByID(req.params.user_id)
     .then(data => {
       return getEmailById(req.params.user_id)
       .then(email => {
         return res.render('users_show', {
           user_id: req.session.user_id,
-          user_email: email,
+          user_email: req.session.user_email,
+          player_email: email,
           matches: data
         });
       })

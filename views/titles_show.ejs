@@ -18,7 +18,19 @@
     </div>
     <br>
     <header>
-      <div class="leaderboard">LEADERBOARD</div>
+      <div class="leaderboard">
+        LEADERBOARD
+        <table>
+          <tr>
+            <th>Player</th><th>Wins</th><th>Losses</th>
+          </tr>
+          <% for (const row of leaderboard) { %>
+            <tr>
+              <td><%= row.email %></td><td><%= row.wins %></td><td><%= row.losses %></td>
+            </tr>
+          <% } %>
+        </table>
+      </div>
         <img class="goof-pic" src="https://i.imgur.com/nEHg7Pb.jpg" height="350" width="350">
       <div class="game-show-buttons">
         <form action="newgame/" method="POST">
@@ -26,9 +38,6 @@
         </form>
         <form action="join/" method="POST">
           <button class="playgame" style="margin-left:135px">JOIN GAME</button>
-        </form>
-        <form action="matches/" method="GET">
-          <button class="viewmatches" style="margin-left:115px">VIEW MATCHES</button>
         </form>
       </div>
       <p class="gamedesc">2 player game

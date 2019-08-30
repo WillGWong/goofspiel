@@ -85,6 +85,7 @@ module.exports = (db) => {
         winners: winnerArr,
         isTurn: bidArr
        }
+       console.log(bidArr)
       res.render(`users_show`, templateVars)
     })
   })

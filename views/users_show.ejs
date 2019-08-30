@@ -69,13 +69,20 @@
         </ul>
         <ul >
             <div style="font-size: 30px; text-decoration: underline; font-family: 'ChineseRocksRg-Regular'">Inspect</div>
-            <% for(let id of matchIds) { %>
+            <% for(let i = 0; i < matchIds.length; i++) { %>
+                <% if(isTurn[i] === false) { %>
               <td>
-                  <form method="GET" action="/titles/1/matches/<%=id%>/">
+                  <form method="GET" action="/titles/1/matches/<%=matchIds[i]%>/">
                     <button class="showplay" type="submit" >VIEW</button>
                   </form>
               </td>
-            <% } %>
+              <% } else {%>
+                <td>
+                    <form method="GET" action="/titles/1/matches/<%=matchIds[i]%>/">
+                      <button class="showplay" type="submit" >PLAY</button>
+                    </form>
+                </td>
+            <% }} %>
         </ul>
       </div>
 

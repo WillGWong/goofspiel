@@ -266,6 +266,24 @@ const getLeaderboard = () => {
   })
 }
 
+const isUserTurn = (userId, matchData) => {
+  const player1 = matchData.match_state.player1.id
+  const player1bid = matchData.match_state.player1.bid
+  const player2 = matchData.match_state.player2.id
+  const player2bid = matchData.match_state.player2.bid
+  const isGameOVer = matchData.match_state.prize.hand
+  if (isGameOVer.length === 0) {
+    return false
+  }
+  if (userId === player1 && player1bid == null) {
+    return true
+  } else if (userId === player2 && player2bid == null) {
+    return true
+  } else {
+    return false
+  }
+}
+
 module.exports = {
   getUserIdFromEmail,
   putUser,
@@ -286,5 +304,6 @@ module.exports = {
   getPlayers,
   getID,
   getWinner,
-  getLeaderboard
+  getLeaderboard,
+  isUserTurn
 }

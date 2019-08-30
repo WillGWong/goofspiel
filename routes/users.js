@@ -22,7 +22,7 @@ const pool = new Pool({
   database: process.env.DB_NAME
 });
 
-const { getEmailandID, getMatchDataByID, getScores, getEmailById, getGameType, getPlayers, getID, getWinner } = require('../queryHelpers');
+const { getEmailandID, getMatchDataByID, getScores, getEmailById, getGameType, getPlayers, getID, getWinner, isUserTurn } = require('../queryHelpers');
 
 module.exports = (db) => {
   router.get("/", (req, res) => {
@@ -53,6 +53,7 @@ module.exports = (db) => {
     let playerArr = []
     let idArr = []
     let winnerArr =[]
+    let bidArr = []
     if (req.session.user_id) {
       userinfo = req.session.user_id
       useremail = req.session.email
@@ -61,6 +62,10 @@ module.exports = (db) => {
     }
     getMatchDataByID(req.params.user_id)
     .then(res => {
+      for (let match of res) {
+        bidArr.push(isUserTurn(req.session.user_id, match))
+      }
+      console.log(bidArr)
       scoreArr = getScores(res)
       titleArr = getGameType(res)
       playerArr = getPlayers(res)
@@ -70,8 +75,16 @@ module.exports = (db) => {
     getEmailById(req.params.user_id)
     .then(email => {
       playeremail = email
-      let templateVars = { scores: scoreArr, user_id: userinfo, email: useremail, displayemail: playeremail, titles: titleArr, players: playerArr,
-        matchIds: idArr, winners: winnerArr }
+      let templateVars = { scores: scoreArr,
+        user_id: userinfo,
+        email: useremail,
+        displayemail: playeremail,
+        titles: titleArr,
+        players: playerArr,
+        matchIds: idArr,
+        winners: winnerArr,
+        isTurn: bidArr
+       }
       res.render(`users_show`, templateVars)
     })
   })
@@ -80,4 +93,5 @@ module.exports = (db) => {
 
   return router;
 };
+
 

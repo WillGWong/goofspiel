@@ -11,6 +11,7 @@
 
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
     <script type="text/javascript" src="/scripts/app.js"></script>
+    <audio id="guncock"><source src="/images/guncock.mp3" type="audio/mpeg"></audio>
   </head>
 
   <body>
@@ -26,7 +27,7 @@
           <img src='/images/prize<%=matchState["prize"]["faceUp"]%>.png' height=200 width=150 style="border:double" >
       </div>
 
-      <form action="bid/" method="POST"><input class="player_bid" name="player_bid" value="bid" type="text"><button>DRAW</button>
+      <form action="bid/" method="POST"><input class="player_bid" name="player_bid" value="bid" type="text"><button>DRAW</button></form>
           <% if (player === 1|| player === null) {%>
             <div class="scoredisplay">
               <div class="collected">COLLECTED</div>
@@ -49,10 +50,9 @@
           </div>
       <div class="playercards">
   <% for(let card of matchState["player2"]["hand"]) {%>
-    <input type="image" class="singlecard" value="<%=[card]%>" src='/images/number<%=[card]%>.jpg'>
+    <img type="image" class="singlecard" id="<%=[card]%>" src='/images/number<%=[card]%>.jpg'>
   <% }}%>
 </div>
-    </form>
   </header>
   </body>
 </html>

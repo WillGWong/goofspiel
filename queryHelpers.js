@@ -242,7 +242,7 @@ const getWinner = (matches) => {
 }
 
 const getLeaderboard = () => {
-  pool.query(`
+  return pool.query(`
   SELECT users.email, foo.wins, bar.losses
   FROM users
   JOIN (
@@ -261,7 +261,6 @@ const getLeaderboard = () => {
   ORDER BY wins DESC
   `)
   .then(res => {
-    console.log(res.rows);
     return res.rows;
   })
 }

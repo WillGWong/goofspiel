@@ -62,7 +62,7 @@ router.use(cookieSession({
       }
       return goofspiel.bidCard(matchId, `${playerNum}`, req.body.player_bid)
       .then(match => {
-        console.log("HELLO", match)
+        //console.log("HELLO", match)
         if (match.match_state.player1.bid != null && match.match_state.player2.bid != null) {
           return goofspiel.resolveRound(match.id)
           .then(match => {

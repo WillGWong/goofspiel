@@ -26,15 +26,17 @@
           <img src='/images/prize<%=matchState["prize"]["faceUp"]%>.png' height=200 width=150 style="border:double" >
       </div>
 
-      <form action="bid/" method="POST"><input name="player_bid" type="number"><button>Bid</button>
+      <form action="bid/" method="POST"><input class="player_bid" value="bid" type="text"><button>DRAW</button>
           <% if (player === 1|| player === null) {%>
             <div class="scoredisplay">
               <div class="collected">COLLECTED</div>
               <div class="player1score"><%=matchState["player1"]["score"]%></div>
+              <div class="collected">RIVAL</div>
+              <div class="player1score"><%=matchState["player2"]["score"]%></div>
             </div>
         <div class="playercards">
         <% for(let card of matchState["player1"]["hand"]) {%>
-            <input type="image" class="singlecard" value="<%=[card]%>" src='/images/number<%=[card]%>.jpg'>
+            <input type="image" class="singlecard" id="<%=[card]%>" src='/images/number<%=[card]%>.jpg'>
         <% }}%>
       </div>
 
@@ -42,6 +44,8 @@
           <div class="scoredisplay">
            <div class="collected">COLLECTED</div>
             <div class="player2score"><%=matchState["player2"]["score"]%></div>
+            <div class="collected">RIVAL</div>
+            <div class="player1score"><%=matchState["player1"]["score"]%></div>
           </div>
       <div class="playercards">
   <% for(let card of matchState["player2"]["hand"]) {%>

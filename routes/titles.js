@@ -63,7 +63,7 @@ module.exports = (db) => {
       if (matchData[0].match_state.prize.hand.length !== 0) {
         res.render("match_play", templateVars);
       } else {
-        console.log(templateVars)
+        //console.log(templateVars)
         res.render("match_end", templateVars)
       }
     })

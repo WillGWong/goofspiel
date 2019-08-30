@@ -32,6 +32,8 @@ header {
 
 }
 
+
+
 .playercards {
   display: flex;
   flex-direction: row;
@@ -57,7 +59,7 @@ header {
 .scoredisplay {
   font-family: 'ChineseRocksRg-Regular';
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: flex-end;
   margin-right: 15px
 }

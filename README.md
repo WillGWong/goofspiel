@@ -41,3 +41,6 @@ Each player has 7 tokens valued from 1 to 7 respectively. Each round, the player
 The game continues with the next round revealing another randomly chosen prize from the remaining prize pool until there are no more tokens (or prizes) left.
 
 The winner is the player with the highest value of prizes won.
+
+## Screenshots
+

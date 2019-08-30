@@ -41,13 +41,13 @@
           <td><%= match.match_state.player1.score %></td>
           <td><%= match.match_state.player2.score %></td>
           <td>
-            <form method="GET" action="/titles/1/matches/<%= match.id %>/">
-              <% if ( (user_id !== match.match_state.player1.id && user_id !== match.match_state.player2.id) || match.match_state.prize.hand.length === 0) { %>
-              <button class="showplay" type="submit" style="margin-left: 50px">VIEW</button>
-              <% } else { %>
-              <button class="showplay" type="submit" style="margin-left: 50px">PLAY</button>
-              <% } %>
-            </form>
+              <form method="GET" action="/titles/1/matches/<%= match.id %>/">
+                <% if ( ( (user_id === match.match_state.player1.id && match.match_state.player1.bid == null) || (user_id === match.match_state.player2.id && match.match_state.player2.bid == null) ) && match.match_state.prize.hand.length !== 0) { %>
+                <button class="showplay" type="submit" >PLAY</button>
+                <% } else { %>
+                <button class="showplay" type="submit" >VIEW</button>
+                <% } %>
+              </form>
           </td>
         </tr>
           <% } %>

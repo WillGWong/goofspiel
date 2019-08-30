@@ -11,6 +11,8 @@
 
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
     <script type="text/javascript" src="/scripts/app.js"></script>
+    <audio id="guncock"><source src="/images/guncock.mp3" type="audio/mpeg"></audio>
+      <audio id="gunshot"><source src="/images/gunshot.mp3" type="audio/mpeg"></audio>
   </head>
 
   <body>
@@ -22,18 +24,22 @@
 
     <header>
       <div class="prize">
-          <h1 class="bounty">BOUNTY</h1>
-          <img src='/images/prize<%=matchState["prize"]["faceUp"]%>.png' height=200 width=150 style="border:double" >
+        <div class="bountyposter">
+          BOUNTY
+          <img class="wantedposter" src='/images/prize<%=matchState["prize"]["faceUp"]%>.png' height=200 width=150 style="border:double" >
+        </div>
+          <form class="bid-form" action="bid/" method="POST"><input id="player_bid" name="player_bid" value="X" type="text">
+            <% if (player === 1|| player === 2) {%>
+            <button class="drawbutton">DRAW</button>
+            <% }%>
+          </form>
       </div>
 
-      <form action="bid/" method="POST"><input class="player_bid" name="player_bid" value="bid" type="text"><button>DRAW</button>
           <% if (player === 1|| player === null) {%>
             <div class="scoredisplay">
-              <div class="collected">COLLECTED</div>
-              <div class="player1score"><%=matchState["player1"]["score"]%></div>
-              <div class="collected">RIVAL</div>
-              <div class="player1score"><%=matchState["player2"]["score"]%></div>
-            </div>
+                    <div class="playerscore">COLLECTED: $<%=matchState["player1"]["score"]%></div>
+                    <div class="enemyscore">RIVAL: $<%=matchState["player2"]["score"]%></div>
+                  </div>
         <div class="playercards">
         <% for(let card of matchState["player1"]["hand"]) {%>
             <input type="image" class="singlecard" id="<%=[card]%>" src='/images/number<%=[card]%>.jpg'>
@@ -42,18 +48,14 @@
 
         <% if (player === 2) {%>
           <div class="scoredisplay">
-           <div class="collected">COLLECTED</div>
-            <div class="player2score"><%=matchState["player2"]["score"]%></div>
-            <div class="collected">RIVAL</div>
-            <div class="player1score"><%=matchState["player1"]["score"]%></div>
+            <div class="playerscore">COLLECTED: $<%=matchState["player2"]["score"]%></div>
+            <div class="enemyscore">RIVAL: $<%=matchState["player1"]["score"]%></div>
           </div>
       <div class="playercards">
   <% for(let card of matchState["player2"]["hand"]) {%>
-    <input type="image" class="singlecard" value="<%=[card]%>" src='/images/number<%=[card]%>.jpg'>
+    <img type="image" class="singlecard" id="<%=[card]%>" src='/images/number<%=[card]%>.jpg'>
   <% }}%>
 </div>
-    </form>
   </header>
   </body>
 </html>
-

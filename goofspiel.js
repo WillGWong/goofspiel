@@ -147,7 +147,6 @@ const resolveMatch = (matchId) => {
   readMatchState(matchId)
   .then(res => {
     let matchState = Object.assign({}, res.match_state);
-    // console.log(matchState);
     const p1Score = res.match_state.player1.score;
     const p2Score = res.match_state.player2.score;
     if (p1Score === p2Score) {

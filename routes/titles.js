@@ -1,6 +1,7 @@
 const express = require('express');
 const router  = express.Router();
 const cookieSession = require('cookie-session');
+const queryHelpers = require('../queryHelpers');
 
 router.use(cookieSession({
   name: 'session',
@@ -32,10 +33,17 @@ module.exports = (db) => {
     let templateVars = ""
     if (req.session.user_id) {
       templateVars = req.session
+      queryHelpers.getLeaderboard()
+      .then(leaderboard => {
+        templateVars.leaderboard = leaderboard;
+        return res.render("titles_show", templateVars);
+      })
     } else {
-      templateVars = { user_id: null }
+      templateVars = {
+        user_id: null,
+      }
+      res.render("titles_show", templateVars);
     }
-    res.render("titles_show", templateVars);
   });
 
   // show a list of active matches

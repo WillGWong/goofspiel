@@ -26,7 +26,7 @@
           <img src='/images/prize<%=matchState["prize"]["faceUp"]%>.png' height=200 width=150 style="border:double" >
       </div>
 
-      <form action="bid/" method="POST"><input class="player_bid" value="bid" type="text"><button>DRAW</button>
+      <form action="bid/" method="POST"><input class="player_bid" name="player_bid" value="bid" type="text"><button>DRAW</button>
           <% if (player === 1|| player === null) {%>
             <div class="scoredisplay">
               <div class="collected">COLLECTED</div>
